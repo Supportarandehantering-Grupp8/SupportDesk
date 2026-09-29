@@ -1,9 +1,10 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
+using SupportDesk.Presentation.Navigation;
 
-namespace SupportDesk.Presentation.ViewModels
+namespace SupportDesk.Presentation.ViewModels;
+
+public partial class MainViewModel(INavigationService navigationService) : ObservableObject
 {
-    public partial class MainViewModel : ObservableObject
-    {
-    }
+    public INavigationService Navigation { get; } = navigationService;
 }
