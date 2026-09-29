@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using SupportDesk.Presentation.Pages;
 using System;
-using Windows.Media.Capture;
 
 namespace SupportDesk.Presentation.Navigation;
 
