@@ -40,8 +40,8 @@ public class SupportTicket
 
         Id = Guid.NewGuid();
         Status = TicketStatus.New;
-        Title = title;
-        Description = description;
+        Title = title.Trim();
+        Description = description.Trim();
         CustomerId = customerId;
         Priority = priority;
         CreatedAt = DateTime.Now;
@@ -86,8 +86,8 @@ public class SupportTicket
             throw new ArgumentException("Beskrivning får inte vara tom.");
         }
 
-        Title = title;
-        Description = description;
+        Title = title.Trim();
+        Description = description.Trim();
     }
 
     public void AddComment(string text)

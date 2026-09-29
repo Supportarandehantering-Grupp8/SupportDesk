@@ -4,11 +4,8 @@ namespace SupportDesk.Application.Tickets;
 
 public interface ITicketRepository
 {
-    void Add(SupportTicket ticket);
-
-    IReadOnlyList<SupportTicket> GetAll();
-
-    SupportTicket? GetById(Guid id);
-
-    void Update(SupportTicket ticket);
+    Task AddAsync(SupportTicket ticket);
+    Task<IReadOnlyList<SupportTicket>> GetAllAsync();
+    Task<SupportTicket?> GetByIdAsync(Guid id);
+    Task UpdateAsync(SupportTicket ticket);
 }

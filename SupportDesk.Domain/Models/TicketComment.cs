@@ -12,7 +12,7 @@ public class TicketComment
             throw new ArgumentException("Kommentar får inte vara tom.");
         }
 
-        Text = text;
+        Text = text.Trim();
         CreatedAt = DateTime.Now;
     }
 }
