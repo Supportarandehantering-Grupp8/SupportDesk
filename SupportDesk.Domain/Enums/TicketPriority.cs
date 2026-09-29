@@ -1,6 +1,8 @@
-﻿
-namespace SupportDesk.Domain.Enums;
+﻿namespace SupportDesk.Domain.Enums;
 
 public enum TicketPriority
 {
+    Low,
+    Normal,
+    High
 }

@@ -1,7 +1,8 @@
-﻿
-
-namespace SupportDesk.Domain.Enums;
+﻿namespace SupportDesk.Domain.Enums;
 
 public enum TicketStatus
 {
+    New,
+    InProgress,
+    Resolved
 }
