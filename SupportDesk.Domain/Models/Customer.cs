@@ -1,5 +1,6 @@
-﻿
-namespace SupportDesk.Domain.Models;
+﻿namespace SupportDesk.Domain.Models;
+
+using System.Net.Mail;
 
 public class Customer
 {
@@ -45,7 +46,7 @@ public class Customer
 
         customerEmail = customerEmail.Trim().ToLower();
 
-        if (!customerEmail.Contains("@"))
+        if (!MailAddress.TryCreate(customerEmail, out _))
             throw new ArgumentException("Customer email is invalid.");
 
         return customerEmail;
