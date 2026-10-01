@@ -10,9 +10,9 @@ public class CustomerService : ICustomerService
 
 
 
-    public CustomerService(ICustomerRepository customerRepository) //Json skickar in Objekt in i customerRepository.
+    public CustomerService(ICustomerRepository customerRepository)
     {
-        _customerRepository = customerRepository;  // customerRepository lägger in det på _customerRepository
+        _customerRepository = customerRepository; 
 
     }
 
@@ -49,8 +49,9 @@ public class CustomerService : ICustomerService
 
         }
 
-        customer.ChangeCustomerName(customerName);
-        customer.ChangeCustomerEmail(customerEmail);
+        customer.UpdateCustomer(customerName, customerEmail);
+
+
 
         return await _customerRepository.UpdateAsync(customer);
     }

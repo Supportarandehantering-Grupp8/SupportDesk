@@ -28,6 +28,16 @@ public class Customer
     }
 
 
+    public void UpdateCustomer(string customerName, string customerEmail)
+    {
+        var normalizedName = NormalizeCustomerName(customerName);
+        var normalizedEmail = NormalizeCustomerEmail(customerEmail);
+
+        CustomerName = normalizedName;
+        CustomerEmail = normalizedEmail;
+    }
+
+
 
 
 
