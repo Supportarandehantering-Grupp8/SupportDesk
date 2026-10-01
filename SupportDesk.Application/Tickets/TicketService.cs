@@ -53,61 +53,23 @@ public class TicketService(
     }
 
 
-    // GEMENSAM DEL
-    public Task UpdateTicketAsync(SupportTicket ticket)
-    {
-        throw new NotImplementedException();
-    }
-
-
     // ALI DEL
-    public async Task UpdateDetailsAsync(
-        Guid id,
-        string title,
-        string description)
+    public async Task UpdateTicketAsync(UpdateTicketRequest request)
     {
-        var ticket = await GetRequiredTicketAsync(id);
+        var ticket = await GetRequiredTicketAsync(request.TicketId);
 
-        ticket.UpdateDetails(title, description);
+        ticket.UpdateDetails(
+            request.Title,
+            request.Description);
 
-        await ticketRepository.UpdateAsync(ticket);
-    }
+        ticket.AssignTechnician(
+            request.Technician);
 
+        ticket.ChangePriority(
+            request.Priority);
 
-    // ALI DEL
-    public async Task AssignTechnicianAsync(
-        Guid id,
-        string technician)
-    {
-        var ticket = await GetRequiredTicketAsync(id);
-
-        ticket.AssignTechnician(technician);
-
-        await ticketRepository.UpdateAsync(ticket);
-    }
-
-
-    // ALI DEL
-    public async Task ChangePriorityAsync(
-        Guid id,
-        TicketPriority priority)
-    {
-        var ticket = await GetRequiredTicketAsync(id);
-
-        ticket.ChangePriority(priority);
-
-        await ticketRepository.UpdateAsync(ticket);
-    }
-
-
-    // ALI DEL
-    public async Task ChangeStatusAsync(
-        Guid id,
-        TicketStatus status)
-    {
-        var ticket = await GetRequiredTicketAsync(id);
-
-        ticket.ChangeStatus(status);
+        ticket.ChangeStatus(
+            request.Status);
 
         await ticketRepository.UpdateAsync(ticket);
     }
