@@ -2,6 +2,11 @@
 
 namespace SupportDesk.Infrastructure.Data;
 
-public class DataPaths
+internal static class DataPaths
 {
+    internal static readonly string Tickets = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "SupportDesk",
+        "tickets.json"
+    );
 }
