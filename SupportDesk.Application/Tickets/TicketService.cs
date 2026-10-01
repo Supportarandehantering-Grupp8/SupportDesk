@@ -1,14 +1,21 @@
 ﻿
+using SupportDesk.Application.Customers;
 using SupportDesk.Application.Enums;
 using SupportDesk.Application.Models;
 
 namespace SupportDesk.Application.Tickets;
 
-public class TicketService : ITicketService
+public class TicketService(ITicketRepository ticketRepository, ICustomerRepository customerRepository) : ITicketService
 {
-    public Task CreateTicketAsync(string title, string description, Guid customerId, TicketPriority priority)
+    public async Task CreateTicketAsync(string title, string description, Guid customerId, TicketPriority priority)
     {
-        throw new NotImplementedException();
+        var customer = await customerRepository.GetByIdAsync(customerId);
+
+        if (customer is null)
+            throw new ArgumentException($"Customer with id {customerId} does not exist.", nameof(customerId));
+
+        SupportTicket ticket = new(title, description, customerId, priority);
+        await ticketRepository.AddAsync(ticket);
     }
 
     public Task<IReadOnlyList<SupportTicket>> GetAllAsync()
