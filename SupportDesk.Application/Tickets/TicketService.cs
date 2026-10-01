@@ -26,11 +26,6 @@ public class TicketService : ITicketService
         throw new NotImplementedException();
     }
 
-    public Task UpdateTicketAsync(Guid Id)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task UpdateTicketAsync(SupportTicket ticket)
     {
         throw new NotImplementedException();
