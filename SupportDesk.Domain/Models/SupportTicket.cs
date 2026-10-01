@@ -1,7 +1,7 @@
 ﻿
-using SupportDesk.Domain.Enums;
+using SupportDesk.Application.Enums;
 
-namespace SupportDesk.Domain.Models;
+namespace SupportDesk.Application.Models;
 
 public class SupportTicket
 {

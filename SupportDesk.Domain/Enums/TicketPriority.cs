@@ -1,4 +1,4 @@
-﻿namespace SupportDesk.Domain.Enums;
+﻿namespace SupportDesk.Application.Enums;
 
 public enum TicketPriority
 {

@@ -1,7 +1,7 @@
-﻿using SupportDesk.Domain.Enums;
-using SupportDesk.Domain.Models;
+﻿using SupportDesk.Application.Enums;
+using SupportDesk.Application.Models;
 
-namespace SupportDesk.Domain;
+namespace SupportDesk.Application.Tickets;
 
 public interface ITicketRepository
 {

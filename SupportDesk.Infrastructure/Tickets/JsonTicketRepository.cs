@@ -1,6 +1,6 @@
-﻿using SupportDesk.Domain;
-using SupportDesk.Domain.Enums;
-using SupportDesk.Domain.Models;
+﻿using SupportDesk.Application.Tickets;
+using SupportDesk.Application.Enums;
+using SupportDesk.Application.Models;
 using SupportDesk.Infrastructure.Data;
 using System.Text.Json;
 

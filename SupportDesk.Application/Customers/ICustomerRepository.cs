@@ -1,6 +1,6 @@
-﻿using SupportDesk.Domain.Models;
+﻿using SupportDesk.Application.Models;
 
-namespace SupportDesk.Domain;
+namespace SupportDesk.Application.Customers;
 
 public interface ICustomerRepository
 {

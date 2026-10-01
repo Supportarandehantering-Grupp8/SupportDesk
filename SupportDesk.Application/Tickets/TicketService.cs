@@ -1,12 +1,12 @@
 ﻿
-using SupportDesk.Domain.Enums;
-using SupportDesk.Domain.Models;
+using SupportDesk.Application.Enums;
+using SupportDesk.Application.Models;
 
 namespace SupportDesk.Application.Tickets;
 
 public class TicketService : ITicketService
 {
-    public Task CreateTicketAsync(string title, string description, Customer customer, TicketPriority priority)
+    public Task CreateTicketAsync(string title, string description, Guid customerId, TicketPriority priority)
     {
         throw new NotImplementedException();
     }
