@@ -1,26 +1,33 @@
-﻿using SupportDesk.Application.Enums;
+﻿using SupportDesk.Application.Customers;
+using SupportDesk.Application.Enums;
 using SupportDesk.Application.Models;
 
 namespace SupportDesk.Application.Tickets;
 
-public class TicketService : ITicketService
+public class TicketService(
+    ITicketRepository ticketRepository,
+    ICustomerRepository customerRepository) : ITicketService
 {
-    private readonly ITicketRepository _ticketRepository;
-
-    public TicketService(ITicketRepository ticketRepository)
-    {
-        _ticketRepository = ticketRepository;
-    }
-
-
     // MALIN / GEMENSAM DEL
-    public Task CreateTicketAsync(
+    public async Task CreateTicketAsync(
         string title,
         string description,
         Guid customerId,
         TicketPriority priority)
     {
-        throw new NotImplementedException();
+        var customer = await customerRepository.GetByIdAsync(customerId);
+
+        if (customer is null)
+        {
+            throw new ArgumentException(
+                $"Customer with id {customerId} does not exist.",
+                nameof(customerId));
+        }
+
+        SupportTicket ticket =
+            new(title, description, customerId, priority);
+
+        await ticketRepository.AddAsync(ticket);
     }
 
 
@@ -34,7 +41,7 @@ public class TicketService : ITicketService
     // ALI DEL
     public async Task<SupportTicket?> GetTicketByIdAsync(Guid id)
     {
-        return await _ticketRepository.GetByIdAsync(id);
+        return await ticketRepository.GetByIdAsync(id);
     }
 
 
@@ -63,7 +70,7 @@ public class TicketService : ITicketService
 
         ticket.UpdateDetails(title, description);
 
-        await _ticketRepository.UpdateAsync(ticket);
+        await ticketRepository.UpdateAsync(ticket);
     }
 
 
@@ -76,7 +83,7 @@ public class TicketService : ITicketService
 
         ticket.AssignTechnician(technician);
 
-        await _ticketRepository.UpdateAsync(ticket);
+        await ticketRepository.UpdateAsync(ticket);
     }
 
 
@@ -89,7 +96,7 @@ public class TicketService : ITicketService
 
         ticket.ChangePriority(priority);
 
-        await _ticketRepository.UpdateAsync(ticket);
+        await ticketRepository.UpdateAsync(ticket);
     }
 
 
@@ -102,7 +109,7 @@ public class TicketService : ITicketService
 
         ticket.ChangeStatus(status);
 
-        await _ticketRepository.UpdateAsync(ticket);
+        await ticketRepository.UpdateAsync(ticket);
     }
 
 
@@ -115,16 +122,16 @@ public class TicketService : ITicketService
 
         ticket.AddComment(text);
 
-        await _ticketRepository.UpdateAsync(ticket);
+        await ticketRepository.UpdateAsync(ticket);
     }
 
 
     // ALI DEL - HJÄLPMETOD
     private async Task<SupportTicket> GetRequiredTicketAsync(Guid id)
     {
-        var ticket = await _ticketRepository.GetByIdAsync(id);
+        var ticket = await ticketRepository.GetByIdAsync(id);
 
-        if (ticket == null)
+        if (ticket is null)
         {
             throw new KeyNotFoundException(
                 $"Ticket med id {id} hittades inte.");
