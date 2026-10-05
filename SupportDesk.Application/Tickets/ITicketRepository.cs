@@ -1,5 +1,5 @@
-﻿using SupportDesk.Application.Enums;
-using SupportDesk.Application.Models;
+﻿using SupportDesk.Domain.Enums;
+using SupportDesk.Domain.Models;
 
 namespace SupportDesk.Application.Tickets;
 

@@ -1,4 +1,4 @@
-﻿namespace SupportDesk.Application.Models;
+﻿namespace SupportDesk.Domain.Models;
 
 using System.Net.Mail;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
-using SupportDesk.Application;
+using SupportDesk.Domain;
 using SupportDesk.Infrastructure;
 using SupportDesk.Presentation.Navigation;
 using SupportDesk.Presentation.Pages;
