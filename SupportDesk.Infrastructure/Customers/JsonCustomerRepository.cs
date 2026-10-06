@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿
+using System.Text.Json;
 using SupportDesk.Application.Customers;
 using SupportDesk.Domain.Models;
 
@@ -6,9 +7,12 @@ namespace SupportDesk.Infrastructure.Customers;
 
 public class JsonCustomerRepository : ICustomerRepository
 {
-    private readonly string _filePath = "customers.json";
+    private readonly string _filePath;
 
-
+    public JsonCustomerRepository(string filePath)
+    {
+        _filePath = filePath;
+    }
 
 
 
@@ -19,20 +23,24 @@ public class JsonCustomerRepository : ICustomerRepository
             return new List<Customer>();
         }
 
-        var json = await File.ReadAllTextAsync(_filePath);
+        try
+        {
+            var json = await File.ReadAllTextAsync(_filePath);
 
-        var customers = JsonSerializer.Deserialize<List<Customer>>(json);
+            var customers = JsonSerializer.Deserialize<List<Customer>>(json);
 
-        if (customers ==null)
+            if (customers == null)
+            {
+                return new List<Customer>();
+            }
+
+            return customers;
+        }
+        catch (JsonException)
         {
             return new List<Customer>();
         }
-
-        return customers;
     }
-
-
-
 
     public async Task AddAsync(Customer customer)
     {
