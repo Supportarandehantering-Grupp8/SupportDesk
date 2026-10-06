@@ -37,22 +37,4 @@ public class TicketService_Tests
             t.CreatedAt != default
         ));
     }
-
-    //[Theory]
-    //[InlineData(null)]
-    //[InlineData("")]
-    //[InlineData(" ")]
-    //public void CreateTicketAsync_Should_ThrowWhenTitleIsInvalid(string? title)
-    //{
-
-    //}
-
-    //[Theory]
-    //[InlineData(null)]
-    //[InlineData("")]
-    //[InlineData(" ")]
-    //public void CreateTicketAsync_Should_ThrowWhenDescriptionIsInvalid(string? title)
-    //{
-
-    //}
 }
