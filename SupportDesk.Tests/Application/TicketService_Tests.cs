@@ -33,6 +33,7 @@ public class TicketService_Tests
             t.Description == description &&
             t.CustomerId == customerId &&
             t.Priority == priority &&
+            t.Status == TicketStatus.New &&
             t.Id != Guid.Empty &&
             t.CreatedAt != default
         ));
