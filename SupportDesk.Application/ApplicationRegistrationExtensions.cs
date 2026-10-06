@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SupportDesk.Application.Tickets;
 
-namespace SupportDesk.Domain;
+namespace SupportDesk.Application;
 
 public static class ApplicationRegistrationExtensions
 {
