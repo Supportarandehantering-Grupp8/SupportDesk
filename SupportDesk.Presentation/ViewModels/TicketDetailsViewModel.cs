@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SupportDesk.Application.Enums;
-using SupportDesk.Application.Models;
+using SupportDesk.Domain.Enums;
+using SupportDesk.Domain.Models;
 using SupportDesk.Application.Tickets;
 using System;
 using System.Collections.Generic;
