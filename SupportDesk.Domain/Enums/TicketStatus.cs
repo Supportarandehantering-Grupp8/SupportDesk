@@ -1,4 +1,4 @@
-﻿namespace SupportDesk.Application.Enums;
+﻿namespace SupportDesk.Domain.Enums;
 
 public enum TicketStatus
 {

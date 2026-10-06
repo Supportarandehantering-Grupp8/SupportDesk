@@ -1,4 +1,4 @@
-﻿namespace SupportDesk.Application.Models;
+﻿namespace SupportDesk.Domain.Models;
 
 public class TicketComment
 {
