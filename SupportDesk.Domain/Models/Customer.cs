@@ -1,11 +1,13 @@
-﻿namespace SupportDesk.Application.Models;
+﻿namespace SupportDesk.Domain.Models;
 
 using System.Net.Mail;
+using System.Text.Json.Serialization;
 
 public class Customer
 {
     public string CustomerName { get; private set; }  
     public string CustomerEmail { get; private set; }
+    [JsonInclude]
     public Guid Id { get; private set; } = Guid.NewGuid();
 
 
