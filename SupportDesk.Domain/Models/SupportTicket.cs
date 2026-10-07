@@ -1,7 +1,8 @@
 ﻿
-using SupportDesk.Application.Enums;
+using SupportDesk.Domain.Enums;
+using System.Text.Json.Serialization;
 
-namespace SupportDesk.Application.Models;
+namespace SupportDesk.Domain.Models;
 
 public class SupportTicket
 {
@@ -17,7 +18,29 @@ public class SupportTicket
 
     public List<TicketComment> Comments { get; private set; } = new();
 
-
+    [JsonConstructor]
+    public SupportTicket(
+        Guid id,
+        TicketStatus status,
+        TicketPriority priority,
+        string title,
+        string description,
+        Guid customerId,
+        string? technician,
+        DateTime createdAt,
+        List<TicketComment> comments
+        )
+    {
+        Id = id;
+        Status = status;
+        Priority = priority;
+        Title = title;
+        Description = description;
+        CustomerId = customerId;
+        Technician = technician;
+        CreatedAt = createdAt;
+        Comments = comments;
+    }
     public SupportTicket(string title,string description,Guid customerId,TicketPriority priority)
     {
 

@@ -1,4 +1,4 @@
-﻿using SupportDesk.Application.Enums;
+﻿using SupportDesk.Domain.Enums;
 
 namespace SupportDesk.Application.Tickets;
 

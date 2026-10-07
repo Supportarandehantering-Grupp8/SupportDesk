@@ -1,15 +1,13 @@
 ﻿using SupportDesk.Application.Tickets;
-using SupportDesk.Application.Enums;
-using SupportDesk.Application.Models;
-using SupportDesk.Infrastructure.Data;
+using SupportDesk.Domain.Enums;
+using SupportDesk.Domain.Models;
 using System.Text.Json;
 
 namespace SupportDesk.Infrastructure.Tickets;
 
-public class JsonTicketRepository : ITicketRepository
+public class JsonTicketRepository(string filePath) : ITicketRepository
 {
-    private readonly string _filePath = DataPaths.Tickets;
-
+    private readonly string _filePath = filePath;
     private readonly JsonSerializerOptions _options = new()
     {
         WriteIndented = true,
