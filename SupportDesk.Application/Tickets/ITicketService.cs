@@ -16,10 +16,13 @@ public interface ITicketService
 
     Task<SupportTicket?> GetTicketByIdAsync(Guid id);
 
-    Task<IReadOnlyList<SupportTicket>> GetTicketsByStatusAsync(
-        TicketStatus status);
-
     Task UpdateTicketAsync(UpdateTicketRequest request);
 
     Task AddCommentAsync(Guid id, string text);
+
+    Task<IReadOnlyList<SupportTicket>> GetBySearchAsync(
+        string searchText,
+        TicketStatus? status,
+        string? technician,
+        TicketSortOrder sortOrder = TicketSortOrder.Newest);
 }

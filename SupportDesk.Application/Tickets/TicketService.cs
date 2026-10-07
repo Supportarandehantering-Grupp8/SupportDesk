@@ -32,27 +32,41 @@ public class TicketService(
     }
 
 
-    // SEBASTIAN / GEMENSAM DEL
-    public Task<IReadOnlyList<SupportTicket>> GetAllAsync()
+    // SEBASTIAN - All
+    public async Task<IReadOnlyList<SupportTicket>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var tickets = await ticketRepository.GetAllAsync();
+
+        return tickets.OrderByDescending(ticket => ticket.CreatedAt).ToList();
     }
 
+
+    // SEBASTIAN - Searh
+    public async Task<IReadOnlyList<SupportTicket>> GetBySearchAsync(
+        string searchText,
+        TicketStatus? status,
+        string? technician,
+        TicketSortOrder sortOrder = TicketSortOrder.Newest)
+    {
+        var tickets = await ticketRepository.GetAllAsync();
+        var customers = await customerRepository.GetAllAsync();
+
+        IEnumerable<SupportTicket> filteredTickets = tickets;
+
+        filteredTickets = ApplyStatusFilter(filteredTickets, status);
+        filteredTickets = ApplyTechnicianFilter(filteredTickets, technician);
+        filteredTickets = ApplySearch(filteredTickets, customers, searchText);
+
+        filteredTickets = ApplySortOrder(filteredTickets, sortOrder);
+
+        return filteredTickets.ToList();
+    }
 
     // ALI DEL
     public async Task<SupportTicket?> GetTicketByIdAsync(Guid id)
     {
         return await ticketRepository.GetByIdAsync(id);
     }
-
-
-    // SEBASTIAN / GEMENSAM DEL
-    public Task<IReadOnlyList<SupportTicket>> GetTicketsByStatusAsync(
-        TicketStatus status)
-    {
-        throw new NotImplementedException();
-    }
-
 
     // ALI DEL
     public async Task UpdateTicketAsync(UpdateTicketRequest request)
@@ -101,5 +115,72 @@ public class TicketService(
         }
 
         return ticket;
+    }
+
+
+    // SEBASTIAN - HJÄLPMETOD
+    private static IEnumerable<SupportTicket> ApplyStatusFilter(
+        IEnumerable<SupportTicket> filteredTickets,
+        TicketStatus? status)
+    {
+        if (status is null)
+        {
+            return filteredTickets;
+        }
+
+        return filteredTickets.Where(ticket => ticket.Status == status);
+    }
+
+    private static IEnumerable<SupportTicket> ApplyTechnicianFilter(
+        IEnumerable<SupportTicket> filteredTickets,
+        string? technician)
+    {
+        if (string.IsNullOrWhiteSpace(technician))
+        {
+            return filteredTickets;
+        }
+
+        return filteredTickets.Where(ticket =>
+            string.Equals(
+                ticket.Technician,
+                technician,
+                StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static IEnumerable<SupportTicket> ApplySearch(
+        IEnumerable<SupportTicket> filteredTickets,
+        IReadOnlyList<Customer> customers,
+        string searchText)
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return filteredTickets;
+        }
+
+        var normalizedSearchText = searchText.Trim();
+
+        return filteredTickets.Where(ticket =>
+            ticket.Title.Contains(
+                normalizedSearchText,
+                StringComparison.OrdinalIgnoreCase)
+            ||
+            customers.Any(customer =>
+                customer.Id == ticket.CustomerId &&
+                customer.CustomerName.Contains(
+                    normalizedSearchText,
+                    StringComparison.OrdinalIgnoreCase)));
+    }
+    private static IEnumerable<SupportTicket> ApplySortOrder(
+        IEnumerable<SupportTicket> filteredTickets,
+        TicketSortOrder sortOrder)
+    {
+        if (sortOrder == TicketSortOrder.Newest)
+        {
+            return filteredTickets.OrderByDescending(
+                ticket => ticket.CreatedAt);
+        }
+
+        return filteredTickets.OrderBy(
+            ticket => ticket.CreatedAt);
     }
 }
