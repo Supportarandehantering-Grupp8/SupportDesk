@@ -38,6 +38,8 @@ namespace SupportDesk.Presentation
 
             services.AddTransient<TicketDetailsPage>();
 
+            services.AddTransient<TicketsViewModel>();
+
             _services = services.BuildServiceProvider();
         }
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
