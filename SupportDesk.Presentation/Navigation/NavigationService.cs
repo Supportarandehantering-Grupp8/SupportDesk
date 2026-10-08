@@ -1,13 +1,14 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using SupportDesk.Presentation.Pages;
 using System;
+using System.Threading.Tasks;
 
 namespace SupportDesk.Presentation.Navigation;
 
-public partial class NavigationService(IServiceProvider services) : ObservableObject, INavigationService
+public partial class NavigationService(IServiceProvider services)
+    : ObservableObject, INavigationService
 {
     [ObservableProperty]
     public partial Page? CurrentPage { get; private set; }
@@ -23,5 +24,14 @@ public partial class NavigationService(IServiceProvider services) : ObservableOb
             AppPage.TicketDetails => services.GetRequiredService<TicketDetailsPage>(),
             _ => throw new ArgumentOutOfRangeException(nameof(page))
         };
+    }
+
+    public async Task NavigateToTicketDetailsAsync(Guid ticketId)
+    {
+        var page = services.GetRequiredService<TicketDetailsPage>();
+
+        CurrentPage = page;
+
+        await page.ViewModel.LoadTicketAsync(ticketId);
     }
 }
