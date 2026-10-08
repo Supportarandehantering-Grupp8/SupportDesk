@@ -1,5 +1,4 @@
-﻿
-using SupportDesk.Domain.Models;
+﻿using SupportDesk.Domain.Models;
 
 namespace SupportDesk.Application.Customers;
 
