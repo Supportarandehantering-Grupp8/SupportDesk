@@ -9,6 +9,53 @@
     mc:Ignorable="d">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Spacing="10">
+            <TextBlock Text="Customers"
+               FontSize="24"
+               FontWeight="Bold" />
+
+            <ListView ItemsSource="{Binding Customers}"
+              SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding CustomerName}" />
+                            <TextBlock Text="{Binding CustomerEmail}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        
+        
+        <StackPanel Grid.Column="1"
+            Spacing="10">
+
+            <TextBlock Text="Customer details"
+               FontSize="24"
+               FontWeight="Bold" />
+
+            <TextBlock Text="Name" />
+
+            <TextBox Text="{Binding CustomerName, Mode=TwoWay}" />
+
+            <TextBlock Text="Email" />
+
+            <TextBox Text="{Binding CustomerEmail, Mode=TwoWay}" />
+
+            <Button Content="Create Customer"
+        Command="{Binding CreateCustomerCommand}" />
+
+            <Button Content="Update Customer"
+        Command="{Binding UpdateCustomerCommand}" />
+
+        </StackPanel>
+
 
     </Grid>
 </Page>
