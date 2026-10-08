@@ -9,49 +9,58 @@ namespace SupportDesk.Presentation.ViewModels;
 
 public partial class CustomersViewModel : ObservableObject
 {
-    private readonly ICustomerService _customerService;  // Viewmodel kan prata med CustomerService
+    private readonly ICustomerService _customerService; 
 
-    [ObservableProperty]  // OBS! (binding) Håller i Värdet(_customerName åt UI) (Använder _customerName) Rad43
-    private string _customerName = string.Empty; // Lagrar namnet som användaren skriver i UI:t
+    [ObservableProperty] 
+    private string _customerName = string.Empty; 
 
-    [ObservableProperty] // OBS! Håller i Värdet(_customerEmail åt UI)  (Använder _customerEmail) Rad43
-    private string _customerEmail = string.Empty; //Användaren skriver
+    [ObservableProperty] 
+    private string _customerEmail = string.Empty; 
 
     [ObservableProperty]
-    private Customer? _selectedCustomer;  //Använderen väljer
+    private Customer? _selectedCustomer;
+
+    partial void OnSelectedCustomerChanged(Customer? value)
+    {
+        if (value is null)
+            return;
+
+        CustomerName = value.CustomerName;
+        CustomerEmail = value.CustomerEmail;
+    }
 
 
 
-    public ObservableCollection<Customer> Customers { get; } = new(); // Customers = Kunder som visas
-    // ObservableProperty gör så att UI märker om något läggs till eller tas bort från Listan.
+    public ObservableCollection<Customer> Customers { get; } = new();
     
     
-    public CustomersViewModel(ICustomerService customerService) //ge mig något som följer Interfacet, i detta fall CustomerService.
+    
+    public CustomersViewModel(ICustomerService customerService) 
     {
         _customerService = customerService;
     }
 
-    public async Task LoadCustomersAsync()  //Hämtar Kunder
+    public async Task LoadCustomersAsync() 
     {
         var customers = await _customerService.GetAllAsync();
 
-        Customers.Clear();   // först töms listan som visas, 
+        Customers.Clear();  
 
-        foreach (var customer in customers)  // går igenom kunderna jag hämtade
+        foreach (var customer in customers)
         {
-            Customers.Add(customer); // lägger in dom en efter en
+            Customers.Add(customer); 
         }
     }
 
     [RelayCommand]
-    public async Task CreateCustomerAsync()  //Registrerar kund
+    public async Task CreateCustomerAsync() 
     {
-        await _customerService.CreateAsync(CustomerName, CustomerEmail); // Kunden som registreras går till CustomerService och fortsätter ned till json
-        await LoadCustomersAsync();  // laddar om uppdaterade listan på skärmen
+        await _customerService.CreateAsync(CustomerName, CustomerEmail);
+        await LoadCustomersAsync(); 
     }
 
     [RelayCommand]
-    public async Task UpdateCustomerAsync()  //Uppdaterar kund
+    public async Task UpdateCustomerAsync() 
     {
         if (SelectedCustomer is null)
             return;
