@@ -3,16 +3,26 @@ using CommunityToolkit.Mvvm.Input;
 using SupportDesk.Application.Tickets;
 using SupportDesk.Domain.Enums;
 using SupportDesk.Domain.Models;
+using SupportDesk.Presentation.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SupportDesk.Presentation.ViewModels;
 
 public partial class TicketDetailsViewModel(
-    ITicketService ticketService) : ObservableObject
+    ITicketService ticketService,
+    INavigationService navigationService) : ObservableObject
 {
     private readonly ITicketService _ticketService = ticketService;
+    private readonly INavigationService _navigationService = navigationService;
+
+    public List<TicketPriority> Priorities { get; } =
+        Enum.GetValues<TicketPriority>().ToList();
+
+    public List<TicketStatus> Statuses { get; } =
+        Enum.GetValues<TicketStatus>().ToList();
 
     [ObservableProperty]
     private Guid ticketId;
@@ -87,5 +97,11 @@ public partial class TicketDetailsViewModel(
         NewComment = string.Empty;
 
         await LoadTicketAsync(TicketId);
+    }
+
+    [RelayCommand]
+    private void Back()
+    {
+        _navigationService.NavigateTo(AppPage.Tickets);
     }
 }

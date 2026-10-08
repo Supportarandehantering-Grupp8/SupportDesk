@@ -1,8 +1,8 @@
-﻿namespace SupportDesk.Domain.Models;
-
+﻿
 using System.Net.Mail;
 using System.Text.Json.Serialization;
 
+namespace SupportDesk.Domain.Models;
 public class Customer
 {
     public string CustomerName { get; private set; }  
