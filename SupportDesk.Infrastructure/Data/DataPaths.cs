@@ -9,4 +9,10 @@ internal static class DataPaths
         "SupportDesk",
         "tickets.json"
     );
+
+    internal static readonly string Customers = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "SupportDesk",
+        "customers.json"
+    );
 }

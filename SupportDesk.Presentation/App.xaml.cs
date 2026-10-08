@@ -34,6 +34,7 @@ namespace SupportDesk.Presentation
 
             services.AddTransient<TicketsPage>();
 
+            services.AddTransient<CreateTicketViewModel>();
             services.AddTransient<CreateTicketPage>();
 
             services.AddTransient<TicketDetailsViewModel>();
@@ -47,7 +48,7 @@ namespace SupportDesk.Presentation
             _window = _services.GetRequiredService<MainWindow>();
 
             var navigation = _services.GetRequiredService<INavigationService>();
-            navigation.NavigateTo(AppPage.Home);
+            navigation.NavigateTo(AppPage.CreateTicket);
        
             _window.Activate();
         }

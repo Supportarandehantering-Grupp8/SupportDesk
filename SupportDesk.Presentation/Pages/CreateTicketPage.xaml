@@ -9,6 +9,6 @@
     mc:Ignorable="d">
 
     <Grid>
-
+        <TextBlock Text="Skapa ärende"></TextBlock>
     </Grid>
 </Page>
