@@ -14,15 +14,17 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Skapa ärende" Grid.Row="0" FontSize="20" Margin="0 0 0 20" />
+            <TextBlock Text="Skapa ärende" Grid.Row="0" FontSize="20" Margin="0 0 0 10" />
 
-            <Button Command="{x:Bind ViewModel.GoBackCommand}" Content="Tillbaka till ärenden" Margin="0 25 0 10" Padding="25 8" HorizontalAlignment="Right" />
+            <Button Grid.Row="1" Command="{x:Bind ViewModel.GoBackCommand}" Content="Tillbaka till ärenden" Margin="0 10 0 0" Padding="25 8" HorizontalAlignment="Right" />
 
-            <TextBlock Text="{x:Bind ViewModel.SuccessMessage, Mode=OneWay}" Margin="0 10 0 10" Foreground="CornflowerBlue" />
+            <TextBlock Grid.Row="2" Text="{x:Bind ViewModel.SuccessMessage, Mode=OneWay}" Foreground="CornflowerBlue" />
 
-            <StackPanel Grid.Row="1" Margin="0 15 0 10" Width="400" HorizontalAlignment="Left">
+            <StackPanel Grid.Row="3" Margin="0 15 0 10" Width="400" HorizontalAlignment="Left">
                 <TextBlock Text="Titel" Margin="0 0 0 10" />
                 <TextBox Text="{x:Bind ViewModel.Title, Mode=TwoWay}"  Margin="0 0 0 10"  />
 
@@ -43,7 +45,7 @@
 
             </StackPanel>
             
-            <Button Grid.Row="2" Command="{x:Bind ViewModel.CreateTicketCommand}" Content="Skapa ärende" Margin="0 0 0 10" Padding="25 8" HorizontalAlignment="Right" />
+            <Button Grid.Row="4" Command="{x:Bind ViewModel.CreateTicketCommand}" Content="Skapa ärende" Margin="0 0 0 10" Padding="25 8" HorizontalAlignment="Right" />
         </Grid>
     </ScrollViewer>
 
