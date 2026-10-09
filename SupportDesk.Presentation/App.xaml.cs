@@ -33,8 +33,10 @@ namespace SupportDesk.Presentation
             services.AddTransient<HomeViewModel>();
             services.AddTransient<HomePage>();
 
+            services.AddTransient<CustomersViewModel>();
             services.AddTransient<CustomersPage>();
 
+            services.AddTransient<TicketsViewModel>();
             services.AddTransient<TicketsPage>();
 
             services.AddTransient<CreateTicketPage>();
@@ -43,7 +45,6 @@ namespace SupportDesk.Presentation
 
             services.AddTransient<TicketDetailsPage>();
 
-            services.AddTransient<TicketsViewModel>();
 
             _services = services.BuildServiceProvider();
         }
