@@ -48,7 +48,7 @@ namespace SupportDesk.Presentation
             _window = _services.GetRequiredService<MainWindow>();
 
             var navigation = _services.GetRequiredService<INavigationService>();
-            navigation.NavigateTo(AppPage.CreateTicket);
+            navigation.NavigateTo(AppPage.Home);
        
             _window.Activate();
         }
