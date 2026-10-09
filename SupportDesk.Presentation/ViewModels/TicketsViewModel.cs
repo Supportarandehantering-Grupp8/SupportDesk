@@ -15,6 +15,8 @@ public partial class TicketsViewModel(
 {
     private CancellationTokenSource? searchCancellationTokenSource;
 
+    private int latestSearchId;
+
     [ObservableProperty]
     private IReadOnlyList<SupportTicket> tickets = [];
 
@@ -30,18 +32,24 @@ public partial class TicketsViewModel(
     [ObservableProperty]
     private TicketSortOrder selectedSortOrder = TicketSortOrder.Newest;
 
-    public IReadOnlyList<TicketStatus> Statuses { get; } = Enum.GetValues<TicketStatus>();
-    public IReadOnlyList<TicketSortOrder> SortOrders { get; } = Enum.GetValues<TicketSortOrder>();
-
     public IReadOnlyList<string> Technicians { get; } = TechnicianList.Names;
 
     public async Task LoadTicketsAsync()
     {
-        Tickets = await ticketService.GetBySearchAsync(
+        int searchId = ++latestSearchId;
+
+        var results = await ticketService.GetBySearchAsync(
             SearchText,
             SelectedStatus,
             SelectedTechnician,
             SelectedSortOrder);
+
+        if (searchId != latestSearchId)
+        {
+            return;
+        }
+
+        Tickets = results;
     }
 
     partial void OnSearchTextChanged(string value)
@@ -65,18 +73,25 @@ public partial class TicketsViewModel(
         {
         }
     }
+
     partial void OnSelectedStatusChanged(TicketStatus? value)
     {
+        searchCancellationTokenSource?.Cancel();
+
         _ = LoadTicketsAsync();
     }
 
     partial void OnSelectedTechnicianChanged(string? value)
     {
+        searchCancellationTokenSource?.Cancel();
+
         _ = LoadTicketsAsync();
     }
 
     partial void OnSelectedSortOrderChanged(TicketSortOrder value)
     {
+        searchCancellationTokenSource?.Cancel();
+
         _ = LoadTicketsAsync();
     }
 }

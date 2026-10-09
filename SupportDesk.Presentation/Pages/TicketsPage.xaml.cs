@@ -1,34 +1,100 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using SupportDesk.Application.Tickets;
 using SupportDesk.Presentation.ViewModels;
-
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using SupportDesk.Domain.Enums;
+using SupportDesk.Presentation.Navigation;
 
 namespace SupportDesk.Presentation.Pages;
 
-/// <summary>
-/// An empty page that can be used on its own or navigated to within a Frame.
-/// </summary>
 public sealed partial class TicketsPage : Page
 {
     public TicketsViewModel ViewModel { get; }
-    public TicketsPage(TicketsViewModel viewModel)
+
+    private readonly NavigationService navigationService;
+
+    public TicketsPage(
+        TicketsViewModel viewModel,
+        NavigationService navigationService)
     {
         InitializeComponent();
+
         ViewModel = viewModel;
+        this.navigationService = navigationService;
+
+        Loaded += TicketsPage_Loaded;
+    }
+
+    private async void TicketsPage_Loaded(object sender, RoutedEventArgs e)
+    {
+        await ViewModel.LoadTicketsAsync();
+    }
+
+    private void StatusComboBox_SelectionChanged(
+        object sender,
+        SelectionChangedEventArgs e)
+    {
+        if (ViewModel is null)
+        {
+            return;
+        }
+
+        if (sender is not ComboBox comboBox)
+        {
+            return;
+        }
+
+        ViewModel.SelectedStatus = comboBox.SelectedIndex switch
+        {
+            1 => TicketStatus.New,
+            2 => TicketStatus.InProgress,
+            3 => TicketStatus.Resolved,
+            _ => null
+        };
+    }
+
+    private void TechnicianComboBox_SelectionChanged(
+        object sender,
+        SelectionChangedEventArgs e)
+    {
+        if (ViewModel is null)
+        {
+            return;
+        }
+
+        if (sender is not ComboBox comboBox)
+        {
+            return;
+        }
+
+        ViewModel.SelectedTechnician = comboBox.SelectedItem as string;
+    }
+
+    private void ClearTechnicianFilter_Click(
+        object sender,
+        RoutedEventArgs e)
+    {
+        TechnicianComboBox.SelectedItem = null;
+    }
+
+    private void SortComboBox_SelectionChanged(
+        object sender,
+        SelectionChangedEventArgs e)
+    {
+        if (ViewModel is null)
+        {
+            return;
+        }
+
+        if (sender is not ComboBox comboBox)
+        {
+            return;
+        }
+
+        ViewModel.SelectedSortOrder = comboBox.SelectedIndex switch
+        {
+            1 => TicketSortOrder.Oldest,
+            _ => TicketSortOrder.Newest
+        };
     }
 }

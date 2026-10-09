@@ -18,6 +18,7 @@ public class TicketOverview_Tests
         Assert.Single(result);
         Assert.Equal("Skrivaren", result[0].Title);
     }
+
     [Fact]
     public async Task Search_ShouldFindPartialTitle()
     {
@@ -32,6 +33,22 @@ public class TicketOverview_Tests
         Assert.Single(result);
         Assert.Equal("Skrivaren", result[0].Title);
     }
+
+    [Fact]
+    public async Task Search_ShouldFindDescription()
+    {
+        var data = await TicketOverviewTestData.CreateAsync();
+
+        var result = await data.TicketService.GetBySearchAsync(
+            "skriva ut dokument",
+            null,
+            null,
+            TicketSortOrder.Newest);
+
+        Assert.Single(result);
+        Assert.Equal("Skrivaren", result[0].Title);
+    }
+
     [Fact]
     public async Task Search_ShouldFindCustomerName()
     {
@@ -46,6 +63,7 @@ public class TicketOverview_Tests
         Assert.Single(result);
         Assert.Equal("Skrivaren", result[0].Title);
     }
+
     [Fact]
     public async Task StatusFilter_ShouldReturnOnlySelectedStatus()
     {
@@ -60,6 +78,7 @@ public class TicketOverview_Tests
         Assert.Single(result);
         Assert.Equal(TicketStatus.Resolved, result[0].Status);
     }
+
     [Fact]
     public async Task Search_ShouldFindAllTicketsForCustomer()
     {
@@ -75,6 +94,7 @@ public class TicketOverview_Tests
         Assert.Contains(result, ticket => ticket.Title == "Datorn startar inte");
         Assert.Contains(result, ticket => ticket.Title == "E-post fungerar inte");
     }
+
     [Fact]
     public async Task Search_ShouldReturnEmptyWhenCustomerHasNoTickets()
     {
@@ -88,6 +108,7 @@ public class TicketOverview_Tests
 
         Assert.Empty(result);
     }
+
     [Fact]
     public async Task SearchAndStatusFilter_ShouldWorkTogether()
     {
@@ -103,6 +124,7 @@ public class TicketOverview_Tests
         Assert.Equal("Problem med nätverket", result[0].Title);
         Assert.Equal(TicketStatus.Resolved, result[0].Status);
     }
+
     [Fact]
     public async Task TechnicianFilter_ShouldReturnOnlySelectedTechnician()
     {
@@ -118,6 +140,7 @@ public class TicketOverview_Tests
         Assert.Equal("E-post fungerar inte", result[0].Title);
         Assert.Equal("Peter", result[0].Technician);
     }
+
     [Fact]
     public async Task THEBIGONE()
     {
@@ -134,6 +157,7 @@ public class TicketOverview_Tests
         Assert.Equal(TicketStatus.Resolved, result[0].Status);
         Assert.Equal("Alex", result[0].Technician);
     }
+
     [Fact]
     public async Task Sort_ShouldOrderNewestFirst()
     {
@@ -152,6 +176,7 @@ public class TicketOverview_Tests
             Assert.True(result[i].CreatedAt >= result[i + 1].CreatedAt);
         }
     }
+
     [Fact]
     public async Task Sort_ShouldOrderOldestFirst()
     {
@@ -170,6 +195,7 @@ public class TicketOverview_Tests
             Assert.True(result[i].CreatedAt <= result[i + 1].CreatedAt);
         }
     }
+
     [Fact]
     public async Task Search_ShouldIgnoreLeadingAndTrailingSpaces()
     {

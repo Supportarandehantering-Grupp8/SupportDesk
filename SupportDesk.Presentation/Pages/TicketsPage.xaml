@@ -8,7 +8,170 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Padding="20" RowSpacing="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBox
+            Grid.Row="0"
+            Width="350"
+            HorizontalAlignment="Left"
+            PlaceholderText="Sök ärende..."
+            Text="{x:Bind ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Horizontal"
+            Spacing="12">
+
+            <ComboBox
+                Header="Status"
+                Width="160"
+                PlaceholderText="Alla"
+                SelectionChanged="StatusComboBox_SelectionChanged">
+                <ComboBoxItem Content="Alla"/>
+                <ComboBoxItem Content="New"/>
+                <ComboBoxItem Content="InProgress"/>
+                <ComboBoxItem Content="Resolved"/>
+            </ComboBox>
+
+            <ComboBox
+                x:Name="TechnicianComboBox"
+                Header="Handläggare"
+                Width="160"
+                PlaceholderText="Alla"
+                ItemsSource="{x:Bind ViewModel.Technicians}"
+                SelectionChanged="TechnicianComboBox_SelectionChanged"/>
+
+            <ComboBox
+                Header="Sortering"
+                Width="160"
+                SelectedIndex="0"
+                SelectionChanged="SortComboBox_SelectionChanged">
+                <ComboBoxItem Content="Nyaste först"/>
+                <ComboBoxItem Content="Äldsta först"/>
+            </ComboBox>
+
+            <Button
+                Content="Visa alla"
+                VerticalAlignment="Bottom"
+                Click="ClearTechnicianFilter_Click"/>
+
+        </StackPanel>
+
+        <Grid
+            Grid.Row="2"
+            RowSpacing="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid
+                Grid.Row="0"
+                Padding="12"
+                ColumnSpacing="12">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Text="Ärende"
+                    FontWeight="SemiBold"/>
+
+                <TextBlock
+                    Grid.Column="1"
+                    Text="Handläggare"
+                    FontWeight="SemiBold"/>
+
+                <TextBlock
+                    Grid.Column="2"
+                    Text="Status"
+                    FontWeight="SemiBold"/>
+
+                <TextBlock
+                    Grid.Column="3"
+                    Text="Skapad"
+                    FontWeight="SemiBold"/>
+
+            </Grid>
+
+            <ListView
+                Grid.Row="1"
+                ItemsSource="{x:Bind ViewModel.Tickets, Mode=OneWay}"
+                SelectionMode="Single">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="MinHeight" Value="56"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Grid
+                            Padding="12"
+                            ColumnSpacing="12">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel
+                                Grid.Column="0"
+                                Spacing="4">
+
+                                <TextBlock
+                                    Text="{Binding Title}"
+                                    FontWeight="SemiBold"/>
+
+                                <TextBlock
+                                    Text="{Binding Description}"
+                                    Opacity="0.65"
+                                    TextTrimming="CharacterEllipsis"
+                                    MaxLines="1"/>
+
+                            </StackPanel>
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Text="{Binding Technician, TargetNullValue=Ej tilldelad}"
+                                VerticalAlignment="Center"/>
+
+                            <TextBlock
+                                Grid.Column="2"
+                                Text="{Binding Status}"
+                                VerticalAlignment="Center"/>
+
+                            <TextBlock
+                                Grid.Column="3"
+                                Text="{Binding CreatedAt}"
+                                VerticalAlignment="Center"/>
+
+                        </Grid>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+        </Grid>
 
     </Grid>
 </Page>

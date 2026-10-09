@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using SupportDesk.Application.Tickets;
 
 namespace SupportDesk.Application;

@@ -7,6 +7,7 @@ namespace SupportDesk.Tests.Overview;
 public class TicketOverviewTestData
 {
     public TicketService TicketService { get; private set; } = null!;
+
     public static async Task<TicketOverviewTestData> CreateAsync()
     {
         var ticketRepository = new FakeTicketRepository();
@@ -56,13 +57,13 @@ public class TicketOverviewTestData
 
         await ticketRepository.AddAsync(networkTicket);
         
-        var computerTiket = new SupportTicket(
+        var computerTicket = new SupportTicket(
             "Datorn startar inte",
             "Datorn reagerar inte när kunden försöker starta den",
             ahli.Id,
             TicketPriority.High);
 
-        await ticketRepository.AddAsync(computerTiket);
+        await ticketRepository.AddAsync(computerTicket);
 
         var mailTicket = new SupportTicket(
             "E-post fungerar inte",
@@ -80,6 +81,4 @@ public class TicketOverviewTestData
             TicketService = ticketService
         };
     }
-
-
 }

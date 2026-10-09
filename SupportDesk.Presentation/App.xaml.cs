@@ -22,7 +22,10 @@ namespace SupportDesk.Presentation
             services.AddInfrastructure();
             services.AddApplication();
 
-            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<NavigationService>();
+
+            services.AddSingleton<INavigationService>(provider =>
+                provider.GetRequiredService<NavigationService>());
 
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<MainWindow>();

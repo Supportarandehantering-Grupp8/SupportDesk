@@ -31,7 +31,6 @@ public class TicketService(
         await ticketRepository.AddAsync(ticket);
     }
 
-
     // SEBASTIAN - All
     public async Task<IReadOnlyList<SupportTicket>> GetAllAsync()
     {
@@ -40,8 +39,7 @@ public class TicketService(
         return tickets.OrderByDescending(ticket => ticket.CreatedAt).ToList();
     }
 
-
-    // SEBASTIAN - Searh
+    // SEBASTIAN - SEARH
     public async Task<IReadOnlyList<SupportTicket>> GetBySearchAsync(
         string searchText,
         TicketStatus? status,
@@ -56,7 +54,6 @@ public class TicketService(
         filteredTickets = ApplyStatusFilter(filteredTickets, status);
         filteredTickets = ApplyTechnicianFilter(filteredTickets, technician);
         filteredTickets = ApplySearch(filteredTickets, customers, searchText);
-
         filteredTickets = ApplySortOrder(filteredTickets, sortOrder);
 
         return filteredTickets.ToList();
@@ -117,7 +114,6 @@ public class TicketService(
         return ticket;
     }
 
-
     // SEBASTIAN - HJÄLPMETOD
     private static IEnumerable<SupportTicket> ApplyStatusFilter(
         IEnumerable<SupportTicket> filteredTickets,
@@ -164,12 +160,17 @@ public class TicketService(
                 normalizedSearchText,
                 StringComparison.OrdinalIgnoreCase)
             ||
+            ticket.Description.Contains(
+                normalizedSearchText,
+                StringComparison.OrdinalIgnoreCase)
+            ||
             customers.Any(customer =>
                 customer.Id == ticket.CustomerId &&
                 customer.CustomerName.Contains(
                     normalizedSearchText,
                     StringComparison.OrdinalIgnoreCase)));
     }
+
     private static IEnumerable<SupportTicket> ApplySortOrder(
         IEnumerable<SupportTicket> filteredTickets,
         TicketSortOrder sortOrder)
