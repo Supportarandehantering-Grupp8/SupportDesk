@@ -39,6 +39,7 @@ namespace SupportDesk.Presentation
             services.AddTransient<TicketsViewModel>();
             services.AddTransient<TicketsPage>();
 
+            services.AddTransient<CreateTicketViewModel>();
             services.AddTransient<CreateTicketPage>();
 
             services.AddTransient<TicketDetailsViewModel>();

@@ -21,7 +21,7 @@
         </NavigationView.MenuItems>
 
         <Border>
-            <ContentControl Content="{x:Bind ViewModel.Navigation.CurrentPage, Mode=OneWay}" />
+            <ContentControl HorizontalContentAlignment="Stretch" Content="{x:Bind ViewModel.Navigation.CurrentPage, Mode=OneWay}" />
         </Border>
     </NavigationView>
 </Window>
