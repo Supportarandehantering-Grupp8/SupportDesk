@@ -8,7 +8,88 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Padding="20" RowSpacing="20">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBox
+            Grid.Row="0"
+            Width="350"
+            HorizontalAlignment="Left"
+            PlaceholderText="Sök ärende..."
+            Text="{x:Bind ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Horizontal"
+            Spacing="12">
+
+            <ComboBox
+                Header="Status"
+                Width="160"
+                PlaceholderText="Alla"
+                SelectionChanged="StatusComboBox_SelectionChanged">
+                <ComboBoxItem Content="Alla"/>
+                <ComboBoxItem Content="New"/>
+                <ComboBoxItem Content="InProgress"/>
+                <ComboBoxItem Content="Resolved"/>
+            </ComboBox>
+
+            <ComboBox
+                x:Name="TechnicianComboBox"
+                Header="Handläggare"
+                Width="160"
+                PlaceholderText="Alla"
+                ItemsSource="{x:Bind ViewModel.Technicians}"
+                SelectionChanged="TechnicianComboBox_SelectionChanged"/>
+
+            <ComboBox
+                Header="Sortering"
+                Width="160"
+                SelectedIndex="0"
+                SelectionChanged="SortComboBox_SelectionChanged">
+                <ComboBoxItem Content="Nyaste först"/>
+                <ComboBoxItem Content="Äldsta först"/>
+            </ComboBox>
+
+            <Button
+                Content="Visa alla"
+                VerticalAlignment="Bottom"
+                Click="ClearTechnicianFilter_Click"/>
+
+        </StackPanel>
+
+        <ListView
+            Grid.Row="2"
+            ItemsSource="{x:Bind ViewModel.Tickets, Mode=OneWay}"
+            SelectionMode="Single">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <StackPanel
+                        Padding="12"
+                        Spacing="4">
+
+                        <TextBlock
+                            Text="{Binding Title}"
+                            FontWeight="SemiBold"/>
+
+                        <TextBlock
+                            Text="{Binding Description}"
+                            Opacity="0.65"
+                            TextTrimming="CharacterEllipsis"
+                            MaxLines="1"/>
+
+                    </StackPanel>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
     </Grid>
 </Page>

@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using SupportDesk.Application.Customers;
 using SupportDesk.Infrastructure.Customers;
 using System;
@@ -21,6 +20,7 @@ public static class InfrastructureRegistrationExtensions
 
         services.AddSingleton<ICustomerRepository>(
             new JsonCustomerRepository(filePath));
+
         services.AddSingleton<ITicketRepository>(new JsonTicketRepository(DataPaths.Tickets));
 
         return services;

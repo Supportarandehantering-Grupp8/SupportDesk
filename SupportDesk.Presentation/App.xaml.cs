@@ -22,7 +22,10 @@ namespace SupportDesk.Presentation
             services.AddInfrastructure();
             services.AddApplication();
 
-            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<NavigationService>();
+
+            services.AddSingleton<INavigationService>(provider =>
+                provider.GetRequiredService<NavigationService>());
 
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<MainWindow>();
@@ -33,6 +36,7 @@ namespace SupportDesk.Presentation
             services.AddTransient<CustomersViewModel>();
             services.AddTransient<CustomersPage>();
 
+            services.AddTransient<TicketsViewModel>();
             services.AddTransient<TicketsPage>();
 
             services.AddTransient<CreateTicketViewModel>();
@@ -41,6 +45,7 @@ namespace SupportDesk.Presentation
             services.AddTransient<TicketDetailsViewModel>();
 
             services.AddTransient<TicketDetailsPage>();
+
 
             _services = services.BuildServiceProvider();
         }

@@ -1,6 +1,4 @@
-﻿
-
-namespace SupportDesk.Infrastructure.Data;
+﻿namespace SupportDesk.Infrastructure.Data;
 
 internal static class DataPaths
 {
