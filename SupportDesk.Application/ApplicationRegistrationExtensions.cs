@@ -1,4 +1,4 @@
-﻿
+﻿using SupportDesk.Application.Customers;
 using Microsoft.Extensions.DependencyInjection;
 using SupportDesk.Application.Customers;
 using SupportDesk.Application.Tickets;

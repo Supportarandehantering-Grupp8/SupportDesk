@@ -30,6 +30,7 @@ namespace SupportDesk.Presentation
             services.AddTransient<HomeViewModel>();
             services.AddTransient<HomePage>();
 
+            services.AddTransient<CustomersViewModel>();
             services.AddTransient<CustomersPage>();
 
             services.AddTransient<TicketsPage>();
