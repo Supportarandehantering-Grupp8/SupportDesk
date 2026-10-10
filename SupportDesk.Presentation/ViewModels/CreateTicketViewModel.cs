@@ -35,6 +35,9 @@ public partial class CreateTicketViewModel(
     [ObservableProperty]
     public partial string ErrorMessage { get; set; } = string.Empty;
 
+    [ObservableProperty]
+    public partial string SuccessMessage { get; set; } = string.Empty;
+
     [RelayCommand]
     private async Task CreateTicket()
     {
@@ -42,6 +45,18 @@ public partial class CreateTicketViewModel(
 
         try
         {
+            if (string.IsNullOrWhiteSpace(Title))
+            {
+                    ErrorMessage = "Du måste ange en titel";
+                    return;
+            }
+
+            if (string.IsNullOrWhiteSpace(Description))
+            {
+                ErrorMessage = "Du måste lägga till en beskrivning";
+                return;
+            }
+
             if (SelectedCustomer is null)
             {
                 ErrorMessage = "Du måste välja en kund";
@@ -49,6 +64,8 @@ public partial class CreateTicketViewModel(
             }
 
             await ticketService.CreateTicketAsync(Title, Description, SelectedCustomer.Id, Priority);
+
+            SuccessMessage = $"Ärende '{Title}' har lagts till.'";
         }
         catch (Exception ex)
         {

@@ -11,7 +11,7 @@ public partial class NavigationService(IServiceProvider services)
     : ObservableObject, INavigationService
 {
     [ObservableProperty]
-    public partial Page? CurrentPage { get; private set; }
+    public partial Page? CurrentPage { get; private set; } 
 
     public void NavigateTo(AppPage page)
     {
