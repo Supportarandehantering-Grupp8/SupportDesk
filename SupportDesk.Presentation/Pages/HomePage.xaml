@@ -8,7 +8,46 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Padding="20">
+
+        <StackPanel Spacing="16">
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Totalt antal ärenden"/>
+                <TextBlock
+                    Text="{x:Bind ViewModel.TotalTickets, Mode=OneWay}"
+                    FontSize="18"/>
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Aktiva ärenden"/>
+                <TextBlock
+                    Text="{x:Bind ViewModel.ActiveTickets, Mode=OneWay}"
+                    FontSize="18"/>
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Avslutade ärenden"/>
+                <TextBlock
+                    Text="{x:Bind ViewModel.ResolvedTickets, Mode=OneWay}"
+                    FontSize="18"/>
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Totalt antal handläggare"/>
+                <TextBlock
+                    Text="{x:Bind ViewModel.TotalTechnicians, Mode=OneWay}"
+                    FontSize="18"/>
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Totalt antal kunder"/>
+                <TextBlock
+                    Text="{x:Bind ViewModel.TotalCustomers, Mode=OneWay}"
+                    FontSize="18"/>
+            </StackPanel>
+
+        </StackPanel>
 
     </Grid>
 </Page>
