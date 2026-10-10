@@ -3,6 +3,8 @@ using SupportDesk.Application.Customers;
 using SupportDesk.Application.Data;
 using SupportDesk.Application.Tickets;
 using SupportDesk.Domain.Enums;
+using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +21,12 @@ public partial class HomeViewModel : ObservableObject
 
     public int TotalCustomers { get; private set; }
     public int TotalTechnicians { get; private set; }
+
+    public ObservableCollection<CustomerTicketSummary> CustomerTicketSummaries { get; } = new();
+
+    public ObservableCollection<TechnicianTicketSummary> TechnicianTicketSummaries { get; } = new();
+
+    public ObservableCollection<RecentTicketSummary> RecentTickets { get; } = new();
 
     public HomeViewModel(
         ITicketService ticketService,
@@ -50,7 +58,87 @@ public partial class HomeViewModel : ObservableObject
         TotalCustomers = customers.Count;
         TotalTechnicians = TechnicianList.Names.Count;
 
+        CustomerTicketSummaries.Clear();
+
+        foreach (var customer in customers
+            .Where(customer => tickets.Any(ticket =>
+                ticket.CustomerId == customer.Id &&
+                (ticket.Status == TicketStatus.New ||
+                 ticket.Status == TicketStatus.InProgress)))
+            .Take(5))
+        {
+            var ticketCount = tickets.Count(ticket =>
+                ticket.CustomerId == customer.Id &&
+                (ticket.Status == TicketStatus.New ||
+                 ticket.Status == TicketStatus.InProgress));
+
+            CustomerTicketSummaries.Add(new CustomerTicketSummary
+            {
+                CustomerName = customer.CustomerName,
+                CustomerEmail = customer.CustomerEmail,
+                TicketCount = ticketCount
+            });
+        }
+
+        TechnicianTicketSummaries.Clear();
+
+        foreach (var technician in TechnicianList.Names)
+        {
+            var inProgressCount = tickets.Count(ticket =>
+                ticket.Technician == technician &&
+                ticket.Status == TicketStatus.InProgress);
+
+            TechnicianTicketSummaries.Add(new TechnicianTicketSummary
+            {
+                TechnicianName = technician,
+                InProgressTickets = inProgressCount
+            });
+        }
+
+        RecentTickets.Clear();
+
+        foreach (var ticket in tickets
+            .OrderByDescending(t => t.CreatedAt)
+            .Take(5))
+        {
+            var customer = customers.FirstOrDefault(c =>
+                c.Id == ticket.CustomerId);
+
+            RecentTickets.Add(new RecentTicketSummary
+            {
+                CustomerName = customer?.CustomerName ?? "Okänd kund",
+                Title = ticket.Title,
+                CreatedAt = ticket.CreatedAt,
+                TechnicianName = ticket.Technician ?? "Ej tilldelad",
+                Priority = ticket.Priority.ToString(),
+                Status = ticket.Status.ToString()
+            });
+        }
+
         OnPropertyChanged(nameof(TotalCustomers));
         OnPropertyChanged(nameof(TotalTechnicians));
     }
+}
+
+public class CustomerTicketSummary
+{
+    public string CustomerName { get; set; } = string.Empty;
+    public string CustomerEmail { get; set; } = string.Empty;
+    public int TicketCount { get; set; }
+}
+
+public class TechnicianTicketSummary
+{
+    public string TechnicianName { get; set; } = string.Empty;
+    public int InProgressTickets { get; set; }
+}
+
+public class RecentTicketSummary
+{
+    public string CustomerName { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public DateTime CreatedAt { get; set; }
+    public string TechnicianName { get; set; } = string.Empty;
+    public string Status { get; set; } = string.Empty;
+    public string Priority { get; set; } = string.Empty;
 }
