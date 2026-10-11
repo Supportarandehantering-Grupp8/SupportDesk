@@ -16,12 +16,27 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBox
-            Grid.Row="0"
-            Width="350"
-            HorizontalAlignment="Left"
-            PlaceholderText="Sök ärende..."
-            Text="{x:Bind ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Grid Grid.Row="0" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox
+                Grid.Column="0"
+                MaxWidth="350"
+                HorizontalAlignment="Stretch"
+                PlaceholderText="Sök ärende..."
+                Text="{x:Bind ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Button
+                Grid.Column="1"
+                Content="Skapa ärende"
+                HorizontalAlignment="Right"
+                Click="CreateTicketButton_Click"/>
+        </Grid>
+
 
         <StackPanel
             Grid.Row="1"

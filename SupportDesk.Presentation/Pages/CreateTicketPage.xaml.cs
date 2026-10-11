@@ -17,10 +17,10 @@ public sealed partial class CreateTicketPage : Page
         InitializeComponent();
     }
 
-    protected override async void OnNavigatedTo(NavigationEventArgs e)
+    private async void CreateTicketPageLoaded(
+        object sender,
+        Microsoft.UI.Xaml.RoutedEventArgs e)
     {
-        base.OnNavigatedTo(e);
-
         await ViewModel.LoadCustomersAsync();
     }
 

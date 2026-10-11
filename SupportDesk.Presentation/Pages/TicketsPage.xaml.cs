@@ -97,4 +97,11 @@ public sealed partial class TicketsPage : Page
             _ => TicketSortOrder.Newest
         };
     }
+
+    private void CreateTicketButton_Click(
+        object sender,
+        RoutedEventArgs e)
+    {
+        navigationService.NavigateTo(AppPage.CreateTicket);
+    }
 }
