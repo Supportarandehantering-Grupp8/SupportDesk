@@ -1,5 +1,4 @@
-﻿
-using System.Text.Json;
+﻿using System.Text.Json;
 using SupportDesk.Application.Customers;
 using SupportDesk.Domain.Models;
 
@@ -14,27 +13,16 @@ public class JsonCustomerRepository : ICustomerRepository
         _filePath = filePath;
     }
 
-
-
     public async Task<List<Customer>> GetAllAsync()
     {
         if (!File.Exists(_filePath))
-        {
             return new List<Customer>();
-        }
 
         try
         {
             var json = await File.ReadAllTextAsync(_filePath);
-
-            var customers = JsonSerializer.Deserialize<List<Customer>>(json);
-
-            if (customers == null)
-            {
-                return new List<Customer>();
-            }
-
-            return customers;
+            return JsonSerializer.Deserialize<List<Customer>>(json)
+                   ?? new List<Customer>();
         }
         catch (JsonException)
         {
@@ -45,53 +33,37 @@ public class JsonCustomerRepository : ICustomerRepository
     public async Task AddAsync(Customer customer)
     {
         var customers = await GetAllAsync();
-
         customers.Add(customer);
 
-        var json = JsonSerializer.Serialize(customers);
-
-        await File.WriteAllTextAsync(_filePath, json);
+        await SaveCustomersAsync(customers);
     }
-
-
-
 
     public async Task<Customer?> GetByIdAsync(Guid id)
     {
         var customers = await GetAllAsync();
-
-        foreach (var customer in customers)
-        {
-            if (customer.Id == id)
-            {
-                return customer;
-            }
-        }
-
-        return null;
+        return customers.FirstOrDefault(c => c.Id == id);
     }
-
-
 
     public async Task<bool> UpdateAsync(Customer customer)
     {
         var customers = await GetAllAsync();
 
-        for (int i = 0; i < customers.Count; i++)
-        {
-            if (customers[i].Id == customer.Id)
-            {
-                customers[i] = customer;
+        var index = customers.FindIndex(c => c.Id == customer.Id);
 
-                var json = JsonSerializer.Serialize(customers);
+        if (index == -1)
+            return false;
 
-                await File.WriteAllTextAsync(_filePath, json);
+        customers[index] = customer;
 
-                return true;
-            }
-        }
-
-        return false;
+        await SaveCustomersAsync(customers);
+        return true;
     }
 
-}   
+    private async Task SaveCustomersAsync(List<Customer> customers)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(_filePath)!);
+
+        var json = JsonSerializer.Serialize(customers);
+        await File.WriteAllTextAsync(_filePath, json);
+    }
+}

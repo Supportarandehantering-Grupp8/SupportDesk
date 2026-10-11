@@ -7,4 +7,7 @@ public interface INavigationService : INotifyPropertyChanged
 {
     Page? CurrentPage { get; }
     void NavigateTo(AppPage page);
+    bool CanGoBack { get; }
+
+    void GoBack();
 }
