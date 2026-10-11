@@ -42,9 +42,11 @@
 
                 <TextBlock Text="Handläggare" />
 
-                <TextBox
-                    Text="{Binding Technician, Mode=TwoWay}"
-                    PlaceholderText="Handläggare" />
+                <ComboBox
+                    ItemsSource="{Binding Technicians}"
+                    SelectedItem="{Binding Technician, Mode=TwoWay}"
+                    PlaceholderText="Välj handläggare"
+                    HorizontalAlignment="Stretch"/>
 
                 <TextBlock Text="Prioritet" />
 
@@ -64,6 +66,12 @@
                     Content="Spara ändringar"
                     Command="{Binding SaveTicketCommand}"
                     HorizontalAlignment="Left" />
+
+                <TextBlock
+                    x:Name="SaveMessageTextBlock"
+                    Text="{Binding SaveMessage}"
+                    Foreground="Red"
+                    TextWrapping="Wrap"/>
 
                 <TextBlock
                     Text="Kommentarer"

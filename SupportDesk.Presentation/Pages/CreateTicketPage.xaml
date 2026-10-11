@@ -38,7 +38,7 @@
                 <TextBlock Text="Prioritet" Margin="0 10 0 10"  />
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
                     <RadioButton Content="Hög" GroupName="Priority" Tag="High" Checked="Priority_Radiobutton_Checked" />
-                    <RadioButton Content="Normal" GroupName="Priority" Tag="Normal" IsChecked="True" Checked="Priority_Radiobutton_Checked" />
+                    <RadioButton Content="Normal" GroupName="Priority" Tag="Normal" IsChecked="True" Checked="Priority_Radiobutton_Checked" x:Name="NormalPriorityRadioButton" />
                     <RadioButton Content="Låg" GroupName="Priority" Tag="Low" Checked="Priority_Radiobutton_Checked" />
                 </StackPanel>
 

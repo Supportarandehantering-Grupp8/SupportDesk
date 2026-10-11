@@ -52,11 +52,20 @@ public partial class CustomersViewModel : ObservableObject
         }
     }
 
+    private void ResetForm()
+    {
+        SelectedCustomer = null;
+        CustomerName = string.Empty;
+        CustomerEmail = string.Empty;
+    }
+
     [RelayCommand]
     public async Task CreateCustomerAsync() 
     {
         await _customerService.CreateAsync(CustomerName, CustomerEmail);
         await LoadCustomersAsync(); 
+
+        ResetForm();
     }
 
     [RelayCommand]
@@ -68,5 +77,7 @@ public partial class CustomersViewModel : ObservableObject
         await _customerService.UpdateAsync(SelectedCustomer.Id,CustomerName,CustomerEmail);
 
         await LoadCustomersAsync();
+
+        ResetForm();
     }
 }

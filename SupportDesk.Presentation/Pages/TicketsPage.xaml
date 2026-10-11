@@ -16,36 +16,46 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
-        <Grid Grid.Row="0" ColumnSpacing="12">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                Text="Ärenden"
+                FontSize="24"
+                FontWeight="SemiBold"
+                VerticalAlignment="Center"/>
+
+            <Button
+                Grid.Column="1"
+                Content="Skapa ärende"
+                Click="CreateTicketButton_Click"/>
+        </Grid>
+
+        <Grid Grid.Row="1" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <TextBox
                 Grid.Column="0"
-                MaxWidth="350"
-                HorizontalAlignment="Stretch"
+                x:Name="SearchTextBox"
                 PlaceholderText="Sök ärende..."
+                VerticalAlignment="Bottom"
                 Text="{x:Bind ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Button
-                Grid.Column="1"
-                Content="Skapa ärende"
-                HorizontalAlignment="Right"
-                Click="CreateTicketButton_Click"/>
-        </Grid>
-
-
-        <StackPanel
-            Grid.Row="1"
-            Orientation="Horizontal"
-            Spacing="12">
-
             <ComboBox
+                Grid.Column="1"
+                x:Name="StatusComboBox"
                 Header="Status"
-                Width="160"
+                HorizontalAlignment="Stretch"
                 PlaceholderText="Alla"
                 SelectionChanged="StatusComboBox_SelectionChanged">
                 <ComboBoxItem Content="Alla"/>
@@ -55,16 +65,19 @@
             </ComboBox>
 
             <ComboBox
+                Grid.Column="2"
                 x:Name="TechnicianComboBox"
                 Header="Handläggare"
-                Width="160"
+                HorizontalAlignment="Stretch"
                 PlaceholderText="Alla"
                 ItemsSource="{x:Bind ViewModel.Technicians}"
                 SelectionChanged="TechnicianComboBox_SelectionChanged"/>
 
             <ComboBox
+                Grid.Column="3"
+                x:Name="SortComboBox"
                 Header="Sortering"
-                Width="160"
+                HorizontalAlignment="Stretch"
                 SelectedIndex="0"
                 SelectionChanged="SortComboBox_SelectionChanged">
                 <ComboBoxItem Content="Nyaste först"/>
@@ -72,39 +85,132 @@
             </ComboBox>
 
             <Button
-                Content="Visa alla"
+                Grid.Column="4"
+                Content="Rensa alla filter"
                 VerticalAlignment="Bottom"
-                Click="ClearTechnicianFilter_Click"/>
+                Click="ClearAllFilters_Click"/>
+        </Grid>
 
-        </StackPanel>
-
-        <ListView
+        <Border
             Grid.Row="2"
-            ItemsSource="{x:Bind ViewModel.Tickets, Mode=OneWay}"
-            SelectionMode="Single">
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="10"
+            Padding="16"
+            HorizontalAlignment="Stretch">
 
-            <ListView.ItemTemplate>
-                <DataTemplate>
+            <ListView
+                ItemsSource="{x:Bind ViewModel.Tickets, Mode=OneWay}"
+                SelectionMode="Single"
+                SelectionChanged="TicketsListView_SelectionChanged">
 
-                    <StackPanel
-                        Padding="12"
-                        Spacing="4">
+                <ListView.Header>
+                    <Grid ColumnSpacing="12" Padding="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
                         <TextBlock
-                            Text="{Binding Title}"
+                            Grid.Column="0"
+                            Text="Kund"
                             FontWeight="SemiBold"/>
 
                         <TextBlock
-                            Text="{Binding Description}"
-                            Opacity="0.65"
-                            TextTrimming="CharacterEllipsis"
-                            MaxLines="1"/>
+                            Grid.Column="1"
+                            Text="Titel"
+                            FontWeight="SemiBold"/>
 
-                    </StackPanel>
+                        <TextBlock
+                            Grid.Column="2"
+                            Text="Datum"
+                            FontWeight="SemiBold"/>
 
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                        <TextBlock
+                            Grid.Column="3"
+                            Text="Handläggare"
+                            FontWeight="SemiBold"/>
 
-        </ListView>
+                        <TextBlock
+                            Grid.Column="4"
+                            Text="Prioritet"
+                            FontWeight="SemiBold"/>
+
+                        <TextBlock
+                            Grid.Column="5"
+                            Text="Status"
+                            FontWeight="SemiBold"/>
+                    </Grid>
+                </ListView.Header>
+
+                <ListView.ItemContainerStyle>
+                    <Style
+                    TargetType="ListViewItem"
+                    BasedOn="{StaticResource DefaultListViewItemStyle}">
+
+                        <Setter
+                            Property="HorizontalContentAlignment"
+                            Value="Stretch"/>
+
+                        <Setter
+                            Property="CornerRadius"
+                            Value="6"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnSpacing="12" Padding="0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Grid.Column="0"
+                                Tag="{Binding CustomerId}"
+                                Loaded="CustomerName_Loaded"
+                                TextTrimming="CharacterEllipsis"/>
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Text="{Binding Title}"
+                                TextTrimming="CharacterEllipsis"/>
+
+                            <TextBlock
+                                Grid.Column="2"
+                                Text="{Binding CreatedAt}"
+                                TextTrimming="CharacterEllipsis"/>
+
+                            <TextBlock
+                                Grid.Column="3"
+                                Text="{Binding Technician}"
+                                TextTrimming="CharacterEllipsis"/>
+
+                            <TextBlock
+                                Grid.Column="4"
+                                Text="{Binding Priority}"
+                                TextTrimming="CharacterEllipsis"/>
+
+                            <TextBlock
+                                Grid.Column="5"
+                                Text="{Binding Status}"
+                                TextTrimming="CharacterEllipsis"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+        </Border>
+
     </Grid>
 </Page>

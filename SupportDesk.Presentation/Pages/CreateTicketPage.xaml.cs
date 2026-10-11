@@ -15,6 +15,15 @@ public sealed partial class CreateTicketPage : Page
         ViewModel = viewModel;
 
         InitializeComponent();
+
+        ViewModel.PropertyChanged += (sender, e) =>
+        {
+            if (e.PropertyName == nameof(ViewModel.Priority) &&
+                ViewModel.Priority == TicketPriority.Normal)
+            {
+                NormalPriorityRadioButton.IsChecked = true;
+            }
+        };
     }
 
     private async void CreateTicketPageLoaded(

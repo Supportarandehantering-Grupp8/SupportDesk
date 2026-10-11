@@ -5,13 +5,16 @@ using SupportDesk.Domain.Enums;
 using SupportDesk.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using SupportDesk.Application.Customers;
 
 namespace SupportDesk.Presentation.ViewModels;
 
 public partial class TicketsViewModel(
-    ITicketService ticketService) : ObservableObject
+    ITicketService ticketService,
+    ICustomerService customerService) : ObservableObject
 {
     private CancellationTokenSource? searchCancellationTokenSource;
 
@@ -19,6 +22,7 @@ public partial class TicketsViewModel(
 
     [ObservableProperty]
     private IReadOnlyList<SupportTicket> tickets = [];
+    public Dictionary<Guid, string> CustomerNames { get; } = new();
 
     [ObservableProperty]
     private string searchText = string.Empty;
@@ -32,7 +36,10 @@ public partial class TicketsViewModel(
     [ObservableProperty]
     private TicketSortOrder selectedSortOrder = TicketSortOrder.Newest;
 
-    public IReadOnlyList<string> Technicians { get; } = TechnicianList.Names;
+    public IReadOnlyList<string> Technicians { get; } =
+        new[] { "Alla handläggare", "Ej tilldelad" }
+        .Concat(TechnicianList.Names)
+        .ToList();
 
     public async Task LoadTicketsAsync()
     {
@@ -49,7 +56,27 @@ public partial class TicketsViewModel(
             return;
         }
 
+        var customers = await customerService.GetAllAsync();
+
+        if (searchId != latestSearchId)
+        {
+            return;
+        }
+
+        CustomerNames.Clear();
+
+        foreach (var customer in customers)
+        {
+            CustomerNames[customer.Id] = customer.CustomerName;
+        }
+
         Tickets = results;
+    }
+
+    public string GetCustomerName(Guid customerId)
+    {
+        return CustomerNames.TryGetValue(customerId, out var name)
+            ? name : "Okänd kund";
     }
 
     partial void OnSearchTextChanged(string value)
