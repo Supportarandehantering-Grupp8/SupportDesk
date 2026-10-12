@@ -1,5 +1,4 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SupportDesk.Presentation.Navigation;
 
@@ -25,5 +24,11 @@ public partial class MainViewModel(INavigationService navigationService) : Obser
     private void ShowTickets()
     {
         Navigation.NavigateTo(AppPage.Tickets);
+    }
+
+    [RelayCommand]
+    private void ShowSettings()
+    {
+        Navigation.NavigateTo(AppPage.Settings);
     }
 }

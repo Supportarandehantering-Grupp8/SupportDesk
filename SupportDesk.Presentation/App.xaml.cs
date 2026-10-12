@@ -13,6 +13,7 @@ namespace SupportDesk.Presentation
     {
         private readonly IServiceProvider _services;
         private Window? _window;
+
         public App()
         {
             InitializeComponent();
@@ -43,19 +44,22 @@ namespace SupportDesk.Presentation
             services.AddTransient<CreateTicketPage>();
 
             services.AddTransient<TicketDetailsViewModel>();
-
             services.AddTransient<TicketDetailsPage>();
 
+            // Settings
+            services.AddTransient<SettingsPage>();
 
             _services = services.BuildServiceProvider();
         }
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+
+        protected override void OnLaunched(
+            Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             _window = _services.GetRequiredService<MainWindow>();
 
             var navigation = _services.GetRequiredService<INavigationService>();
             navigation.NavigateTo(AppPage.Home);
-       
+
             _window.Activate();
         }
     }
