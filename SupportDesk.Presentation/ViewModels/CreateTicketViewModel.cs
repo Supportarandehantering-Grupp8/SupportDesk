@@ -77,7 +77,7 @@ public partial class CreateTicketViewModel(
             ErrorMessage = ex.Message;
         }
     }
-
+    
     [RelayCommand]
     private void GoBack()
     {

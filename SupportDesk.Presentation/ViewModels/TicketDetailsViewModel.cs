@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SupportDesk.Application.Data;
 using SupportDesk.Application.Tickets;
 using SupportDesk.Domain.Enums;
 using SupportDesk.Domain.Models;
@@ -23,6 +25,11 @@ public partial class TicketDetailsViewModel(
 
     public List<TicketStatus> Statuses { get; } =
         Enum.GetValues<TicketStatus>().ToList();
+
+    public List<string> Technicians { get; } =
+        new[] { "Ej tilldelad" }
+        .Concat(TechnicianList.Names)
+        .ToList();
 
     [ObservableProperty]
     private Guid ticketId;
@@ -48,6 +55,12 @@ public partial class TicketDetailsViewModel(
     [ObservableProperty]
     private List<TicketComment> comments = [];
 
+    [ObservableProperty]
+    private string saveMessage = string.Empty;
+
+    [ObservableProperty]
+    private bool isSaveSuccess;
+
     public async Task LoadTicketAsync(Guid id)
     {
         var ticket = await _ticketService.GetTicketByIdAsync(id);
@@ -64,22 +77,41 @@ public partial class TicketDetailsViewModel(
         Priority = ticket.Priority;
         Status = ticket.Status;
         Comments = ticket.Comments;
+        SaveMessage = string.Empty;
+        IsSaveSuccess = false;
     }
 
     [RelayCommand]
     private async Task SaveTicketAsync()
     {
+        if (string.IsNullOrWhiteSpace(Technician) ||
+            Technician == "Ej tilldelad")
+        {
+            IsSaveSuccess = false;
+            SaveMessage = "Du måste välja en handläggare.";
+            return;
+        }
+
+        SaveMessage = string.Empty;
+
         var request = new UpdateTicketRequest
         {
             TicketId = TicketId,
             Title = Title,
             Description = Description,
-            Technician = Technician ?? string.Empty,
+            Technician = Technician,
             Priority = Priority,
             Status = Status
         };
 
         await _ticketService.UpdateTicketAsync(request);
+
+        IsSaveSuccess = true;
+        SaveMessage = "Ärendet har uppdaterats!";
+
+        await Task.Delay(3000);
+
+        SaveMessage = string.Empty;
     }
 
     [RelayCommand]

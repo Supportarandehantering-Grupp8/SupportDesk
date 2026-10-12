@@ -1,9 +1,10 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using SupportDesk.Application.Tickets;
+using SupportDesk.Domain.Models;
 using SupportDesk.Presentation.ViewModels;
 using SupportDesk.Domain.Enums;
 using SupportDesk.Presentation.Navigation;
+using System;
 
 namespace SupportDesk.Presentation.Pages;
 
@@ -67,14 +68,22 @@ public sealed partial class TicketsPage : Page
             return;
         }
 
-        ViewModel.SelectedTechnician = comboBox.SelectedItem as string;
+        string? selectedTechnician = comboBox.SelectedItem as string;
+
+        ViewModel.SelectedTechnician = selectedTechnician == "Alla handläggare" ? null : selectedTechnician;
     }
 
-    private void ClearTechnicianFilter_Click(
+    private void ClearAllFilters_Click(
         object sender,
         RoutedEventArgs e)
     {
+        ViewModel.SearchText = string.Empty;
+
+        StatusComboBox.SelectedItem = null;
         TechnicianComboBox.SelectedItem = null;
+        SortComboBox.SelectedIndex = 0;
+
+        ViewModel.SelectedSortOrder = TicketSortOrder.Newest;
     }
 
     private void SortComboBox_SelectionChanged(
@@ -103,5 +112,24 @@ public sealed partial class TicketsPage : Page
         RoutedEventArgs e)
     {
         navigationService.NavigateTo(AppPage.CreateTicket);
+    }
+    private void CustomerName_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (sender is TextBlock textBlock &&
+            textBlock.Tag is Guid customerId)
+        {
+            textBlock.Text = ViewModel.GetCustomerName(customerId);
+        }
+    }
+
+    private async void TicketsListView_SelectionChanged(
+    object sender,
+    SelectionChangedEventArgs e)
+    {
+        if (sender is ListView listView &&
+            listView.SelectedItem is SupportTicket ticket)
+        {
+            await navigationService.NavigateToTicketDetailsAsync(ticket.Id);
+        }
     }
 }

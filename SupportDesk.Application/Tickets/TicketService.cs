@@ -136,6 +136,11 @@ public class TicketService(
             return filteredTickets;
         }
 
+        if (technician == "Ej tilldelad")
+        {
+            return filteredTickets.Where(ticket => string.IsNullOrWhiteSpace(ticket.Technician));
+        }
+
         return filteredTickets.Where(ticket =>
             string.Equals(
                 ticket.Technician,
