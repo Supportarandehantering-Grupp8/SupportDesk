@@ -65,7 +65,7 @@ public partial class CreateTicketViewModel(
 
             await ticketService.CreateTicketAsync(Title, Description, SelectedCustomer.Id, Priority);
 
-            SuccessMessage = $"Ärende '{Title}' har lagts till.'";
+            SuccessMessage = $"Ärende '{Title}' har lagts till.";
 
             Title = string.Empty;
             Description = string.Empty;
