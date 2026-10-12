@@ -55,4 +55,9 @@ public sealed partial class CreateTicketPage : Page
             Normal_Priority_RadioButton.IsChecked = true;
         }
     }
+
+    private void Input_GotFocus(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        ViewModel.ClearSuccessMessage();
+    }
 }

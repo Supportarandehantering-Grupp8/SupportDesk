@@ -84,6 +84,11 @@ public partial class CreateTicketViewModel(
         navigationService.NavigateTo(AppPage.Tickets);
     }
 
+    public void ClearSuccessMessage()
+    {
+        SuccessMessage = string.Empty;
+    }
+
     public async Task LoadCustomersAsync()
     {
         var customers = await customerService.GetAllAsync();

@@ -27,19 +27,19 @@
 
             <StackPanel Grid.Row="3" Margin="0 15 0 10" Width="400" HorizontalAlignment="Left">
                 <TextBlock Text="Titel" Margin="0 0 0 10" />
-                <TextBox Text="{x:Bind ViewModel.Title, Mode=TwoWay}"  Margin="0 0 0 10"  />
+                <TextBox Text="{x:Bind ViewModel.Title, Mode=TwoWay}" GotFocus="Input_GotFocus" Margin="0 0 0 10"  />
 
                 <TextBlock Text="Ärendebeskrivning" Margin="0 10 0 10" />
-                <TextBox Text="{x:Bind ViewModel.Description, Mode=TwoWay}" Margin="0 0 0 10"  Height="200" TextWrapping="Wrap" AcceptsReturn="True" />
+                <TextBox Text="{x:Bind ViewModel.Description, Mode=TwoWay}" GotFocus="Input_GotFocus" Margin="0 0 0 10"  Height="200" TextWrapping="Wrap" AcceptsReturn="True" />
 
                 <TextBlock Text="Kund" Margin="0 10 0 10"  />
-                <ComboBox ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedCustomer, Mode=TwoWay}" DisplayMemberPath="CustomerName" PlaceholderText="Välj en kund" Margin="0 0 0 10" HorizontalAlignment="Stretch" />
+                <ComboBox ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedCustomer, Mode=TwoWay}" DisplayMemberPath="CustomerName" PlaceholderText="Välj en kund" GotFocus="Input_GotFocus" Margin="0 0 0 10" HorizontalAlignment="Stretch" />
 
                 <TextBlock Text="Prioritet" Margin="0 10 0 10"  />
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                    <RadioButton Content="Hög" GroupName="Priority" Tag="High" Checked="Priority_Radiobutton_Checked" />
-                    <RadioButton x:Name="Normal_Priority_RadioButton" Content="Normal" GroupName="Priority" Tag="Normal" IsChecked="True" Checked="Priority_Radiobutton_Checked" />
-                    <RadioButton Content="Låg" GroupName="Priority" Tag="Low" Checked="Priority_Radiobutton_Checked" />
+                    <RadioButton Content="Hög" GroupName="Priority" GotFocus="Input_GotFocus" Tag="High" Checked="Priority_Radiobutton_Checked" />
+                    <RadioButton x:Name="Normal_Priority_RadioButton" Content="Normal" GroupName="Priority" GotFocus="Input_GotFocus" Tag="Normal" IsChecked="True" Checked="Priority_Radiobutton_Checked" />
+                    <RadioButton Content="Låg" GroupName="Priority" Tag="Low" GotFocus="Input_GotFocus" Checked="Priority_Radiobutton_Checked" />
                 </StackPanel>
 
                 <TextBlock Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}" Margin="0 10 0 0" Foreground="Crimson" />
