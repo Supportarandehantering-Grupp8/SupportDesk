@@ -13,15 +13,36 @@
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <NavigationView x:Name="AppNavigation" ItemInvoked="AppNavigation_ItemInvoked" PaneDisplayMode="Left">
+    <NavigationView
+        x:Name="AppNavigation"
+        ItemInvoked="AppNavigation_ItemInvoked"
+        PaneDisplayMode="Left">
+
         <NavigationView.MenuItems>
-            <NavigationViewItem x:Name="HomeNavigationItem" Content="Översikt" Tag="home" Icon="Home" />
-            <NavigationViewItem x:Name="CustomersNavigationItem" Content="Kunder" Tag="customers" Icon="People" />
-            <NavigationViewItem x:Name="TicketsNavigationItem" Content="Ärenden" Tag="tickets" Icon="Tag" />
+            <NavigationViewItem
+                x:Name="HomeNavigationItem"
+                Content="Översikt"
+                Tag="home"
+                Icon="Home" />
+
+            <NavigationViewItem
+                x:Name="CustomersNavigationItem"
+                Content="Kunder"
+                Tag="customers"
+                Icon="People" />
+
+            <NavigationViewItem
+                x:Name="TicketsNavigationItem"
+                Content="Ärenden"
+                Tag="tickets"
+                Icon="Tag" />
         </NavigationView.MenuItems>
 
         <Border>
-            <ContentControl HorizontalContentAlignment="Stretch" Content="{x:Bind ViewModel.Navigation.CurrentPage, Mode=OneWay}" />
+            <ContentControl
+                HorizontalContentAlignment="Stretch"
+                Content="{x:Bind ViewModel.Navigation.CurrentPage, Mode=OneWay}" />
         </Border>
+
     </NavigationView>
 </Window>

@@ -65,33 +65,28 @@ public partial class CreateTicketViewModel(
 
             await ticketService.CreateTicketAsync(Title, Description, SelectedCustomer.Id, Priority);
 
-            SuccessMessage = $"Ärende '{Title}' har lagts till.'";
+            SuccessMessage = $"Ärende '{Title}' har lagts till.";
 
-            ResetForm();
-
-            await Task.Delay(3000);
-
-            SuccessMessage = string.Empty;
-
+            Title = string.Empty;
+            Description = string.Empty;
+            SelectedCustomer = null;
+            Priority = TicketPriority.Normal;
         }
         catch (Exception ex)
         {
             ErrorMessage = ex.Message;
         }
     }
-
-    private void ResetForm()
-    {
-        Title = string.Empty;
-        Description = string.Empty;
-        SelectedCustomer = null;
-        Priority = TicketPriority.Normal;
-    }
-
+    
     [RelayCommand]
     private void GoBack()
     {
         navigationService.NavigateTo(AppPage.Tickets);
+    }
+
+    public void ClearSuccessMessage()
+    {
+        SuccessMessage = string.Empty;
     }
 
     public async Task LoadCustomersAsync()

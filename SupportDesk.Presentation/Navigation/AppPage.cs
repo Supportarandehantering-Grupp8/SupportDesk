@@ -1,5 +1,4 @@
-﻿
-namespace SupportDesk.Presentation.Navigation;
+﻿namespace SupportDesk.Presentation.Navigation;
 
 public enum AppPage
 {
@@ -7,5 +6,6 @@ public enum AppPage
     Customers,
     Tickets,
     CreateTicket,
-    TicketDetails
+    TicketDetails,
+    Settings
 }
