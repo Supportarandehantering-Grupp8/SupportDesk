@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Window
     x:Class="SupportDesk.Presentation.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -16,9 +17,11 @@
     <NavigationView
         x:Name="AppNavigation"
         ItemInvoked="AppNavigation_ItemInvoked"
-        PaneDisplayMode="Left">
+        PaneDisplayMode="Left"
+        Background="#F5F8FC">
 
         <NavigationView.MenuItems>
+
             <NavigationViewItem
                 x:Name="HomeNavigationItem"
                 Content="Översikt"
@@ -36,13 +39,17 @@
                 Content="Ärenden"
                 Tag="tickets"
                 Icon="Tag" />
+
         </NavigationView.MenuItems>
 
         <Border>
+
             <ContentControl
                 HorizontalContentAlignment="Stretch"
                 Content="{x:Bind ViewModel.Navigation.CurrentPage, Mode=OneWay}" />
+
         </Border>
 
     </NavigationView>
+
 </Window>
