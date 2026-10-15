@@ -1,122 +1,374 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Page
     x:Class="SupportDesk.Presentation.Pages.TicketDetailsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="#F5F8FC">
 
-    <Grid Padding="24">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-        <ScrollViewer>
-            <StackPanel
-                Spacing="16"
-                MaxWidth="700"
-                HorizontalAlignment="Left">
+        <Grid
+            Padding="32"
+            RowSpacing="20">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+            <!-- SIDHUVUD -->
+
+            <Grid Grid.Row="0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    Grid.Column="0"
+                    Spacing="4">
+
+                    <TextBlock
+                        Text="Ärendedetaljer"
+                        FontSize="32"
+                        FontWeight="SemiBold"
+                        Foreground="#172033"/>
+
+                    <TextBlock
+                        Text="Hantera ärendet, uppdatera status och lägg till kommentarer"
+                        FontSize="15"
+                        Foreground="#64748B"/>
+
+                </StackPanel>
+
 
                 <Button
-                    Content="← Tillbaka till ärenden"
+                    Grid.Column="1"
+                    Content="Tillbaka till ärenden"
                     Command="{Binding BackCommand}"
-                    HorizontalAlignment="Left" />
+                    Padding="18,9"
+                    VerticalAlignment="Center"/>
 
-                <TextBlock
-                    Text="Ärendedetaljer"
-                    FontSize="28"
-                    FontWeight="SemiBold" />
+            </Grid>
 
-                <TextBlock Text="Titel" />
 
-                <TextBox
-                    Text="{Binding Title, Mode=TwoWay}"
-                    PlaceholderText="Titel" />
+            <!-- INNEHÅLL -->
 
-                <TextBlock Text="Beskrivning" />
+            <Grid
+                Grid.Row="1"
+                ColumnSpacing="20">
 
-                <TextBox
-                    Text="{Binding Description, Mode=TwoWay}"
-                    PlaceholderText="Beskrivning"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    Height="120" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Handläggare" />
 
-                <ComboBox
-                    ItemsSource="{Binding Technicians}"
-                    SelectedItem="{Binding Technician, Mode=TwoWay}"
-                    PlaceholderText="Välj handläggare"
-                    HorizontalAlignment="Stretch"/>
+                <!-- ÄRENDEUPPGIFTER -->
 
-                <TextBlock Text="Prioritet" />
+                <Border
+                    Grid.Column="0"
+                    Background="White"
+                    BorderBrush="#DCE4EE"
+                    BorderThickness="1"
+                    CornerRadius="14"
+                    Padding="28">
 
-                <ComboBox
-                    ItemsSource="{Binding Priorities}"
-                    SelectedItem="{Binding Priority, Mode=TwoWay}"
-                    HorizontalAlignment="Stretch" />
+                    <StackPanel Spacing="18">
 
-                <TextBlock Text="Status" />
 
-                <ComboBox
-                    ItemsSource="{Binding Statuses}"
-                    SelectedItem="{Binding Status, Mode=TwoWay}"
-                    HorizontalAlignment="Stretch" />
+                        <!-- KORTRUBRIK -->
 
-                <Button
-                    Content="Spara ändringar"
-                    Command="{Binding SaveTicketCommand}"
-                    HorizontalAlignment="Left" />
+                        <StackPanel Spacing="4">
 
-                <TextBlock
-                    x:Name="SaveMessageTextBlock"
-                    Text="{Binding SaveMessage}"
-                    Foreground="Red"
-                    TextWrapping="Wrap"/>
+                            <TextBlock
+                                Text="Ärendeuppgifter"
+                                FontSize="22"
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
 
-                <TextBlock
-                    Text="Kommentarer"
-                    FontSize="20"
-                    FontWeight="SemiBold"
-                    Margin="0,16,0,0" />
+                            <TextBlock
+                                Text="Redigera information och ansvarig handläggare."
+                                FontSize="14"
+                                Foreground="#64748B"/>
 
-                <ListView
-                    ItemsSource="{Binding Comments}"
-                    MinHeight="150">
+                        </StackPanel>
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,6">
+
+                        <!-- TITEL -->
+
+                        <StackPanel Spacing="7">
+
+                            <TextBlock
+                                Text="Titel"
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
+
+                            <TextBox
+                                Text="{Binding Title, Mode=TwoWay}"
+                                PlaceholderText="Titel"/>
+
+                        </StackPanel>
+
+
+                        <!-- BESKRIVNING -->
+
+                        <StackPanel Spacing="7">
+
+                            <TextBlock
+                                Text="Beskrivning"
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
+
+                            <TextBox
+                                Text="{Binding Description, Mode=TwoWay}"
+                                PlaceholderText="Beskrivning"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                Height="120"/>
+
+                        </StackPanel>
+
+
+                        <!-- HANDLÄGGARE -->
+
+                        <StackPanel Spacing="7">
+
+                            <TextBlock
+                                Text="Handläggare"
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
+
+                            <ComboBox
+                                ItemsSource="{Binding Technicians}"
+                                SelectedItem="{Binding Technician, Mode=TwoWay}"
+                                PlaceholderText="Välj handläggare"
+                                HorizontalAlignment="Stretch"/>
+
+                        </StackPanel>
+
+
+                        <!-- PRIORITET + STATUS -->
+
+                        <Grid ColumnSpacing="14">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <!-- PRIORITET -->
+
+                            <StackPanel
+                                Grid.Column="0"
+                                Spacing="7">
+
                                 <TextBlock
-                                    Text="{Binding Text}"
-                                    TextWrapping="Wrap" />
+                                    Text="Prioritet"
+                                    FontWeight="SemiBold"
+                                    Foreground="#172033"/>
 
-                                <TextBlock
-                                    Text="{Binding CreatedAt}"
-                                    FontSize="12"
-                                    Opacity="0.6" />
+                                <ComboBox
+                                    ItemsSource="{Binding Priorities}"
+                                    SelectedItem="{Binding Priority, Mode=TwoWay}"
+                                    HorizontalAlignment="Stretch"/>
+
                             </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
 
-                </ListView>
 
-                <TextBlock Text="Ny kommentar" />
+                            <!-- STATUS -->
 
-                <TextBox
-                    Text="{Binding NewComment, Mode=TwoWay}"
-                    PlaceholderText="Skriv en kommentar"
-                    AcceptsReturn="True"
-                    TextWrapping="Wrap"
-                    Height="90" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Spacing="7">
 
-                <Button
-                    Content="Lägg till kommentar"
-                    Command="{Binding AddCommentCommand}"
-                    HorizontalAlignment="Left" />
+                                <TextBlock
+                                    Text="Status"
+                                    FontWeight="SemiBold"
+                                    Foreground="#172033"/>
 
-            </StackPanel>
-        </ScrollViewer>
+                                <ComboBox
+                                    ItemsSource="{Binding Statuses}"
+                                    SelectedItem="{Binding Status, Mode=TwoWay}"
+                                    HorizontalAlignment="Stretch"/>
 
-    </Grid>
+                            </StackPanel>
+
+                        </Grid>
+
+
+                        <!-- SPARA -->
+
+                        <Button
+                            Content="Spara ändringar"
+                            Command="{Binding SaveTicketCommand}"
+                            Background="#2563EB"
+                            Foreground="White"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            Padding="20,11"/>
+
+
+                        <!-- SPARMEDDELANDE -->
+
+                        <TextBlock
+                            x:Name="SaveMessageTextBlock"
+                            Text="{Binding SaveMessage}"
+                            Foreground="Red"
+                            TextWrapping="Wrap"
+                            HorizontalAlignment="Center"/>
+
+                    </StackPanel>
+
+                </Border>
+
+
+                <!-- KOMMENTARER -->
+
+                <Border
+                    Grid.Column="1"
+                    Background="White"
+                    BorderBrush="#DCE4EE"
+                    BorderThickness="1"
+                    CornerRadius="14"
+                    Padding="28">
+
+                    <Grid RowSpacing="16">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+
+                        <!-- RUBRIK -->
+
+                        <StackPanel
+                            Grid.Row="0"
+                            Spacing="4">
+
+                            <TextBlock
+                                Text="Kommentarer"
+                                FontSize="22"
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
+
+                            <TextBlock
+                                Text="Historik och nya kommentarer för ärendet."
+                                FontSize="14"
+                                Foreground="#64748B"
+                                TextWrapping="Wrap"/>
+
+                        </StackPanel>
+
+
+                        <!-- KOMMENTARLISTA -->
+
+                        <ListView
+                            Grid.Row="1"
+                            ItemsSource="{Binding Comments}"
+                            MinHeight="250">
+
+                            <ListView.ItemContainerStyle>
+
+                                <Style
+                                    TargetType="ListViewItem"
+                                    BasedOn="{StaticResource DefaultListViewItemStyle}">
+
+                                    <Setter
+                                        Property="HorizontalContentAlignment"
+                                        Value="Stretch"/>
+
+                                    <Setter
+                                        Property="CornerRadius"
+                                        Value="8"/>
+
+                                    <Setter
+                                        Property="Margin"
+                                        Value="0,3"/>
+
+                                </Style>
+
+                            </ListView.ItemContainerStyle>
+
+
+                            <ListView.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    <Border
+                                        Background="#F8FAFC"
+                                        CornerRadius="8"
+                                        Padding="12">
+
+                                        <StackPanel Spacing="5">
+
+                                            <TextBlock
+                                                Text="{Binding Text}"
+                                                TextWrapping="Wrap"/>
+
+                                            <TextBlock
+                                                Text="{Binding CreatedAt}"
+                                                FontSize="12"
+                                                Foreground="#64748B"/>
+
+                                        </StackPanel>
+
+                                    </Border>
+
+                                </DataTemplate>
+
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+
+
+                        <!-- NY KOMMENTAR -->
+
+                        <TextBlock
+                            Grid.Row="2"
+                            Text="Ny kommentar"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
+
+                        <TextBox
+                            Grid.Row="3"
+                            Text="{Binding NewComment, Mode=TwoWay}"
+                            PlaceholderText="Skriv en kommentar..."
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            Height="100"/>
+
+
+                        <Button
+                            Grid.Row="4"
+                            Content="Lägg till kommentar"
+                            Command="{Binding AddCommentCommand}"
+                            Background="#2563EB"
+                            Foreground="White"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            Padding="20,11"/>
+
+                    </Grid>
+
+                </Border>
+
+            </Grid>
+
+        </Grid>
+
+    </ScrollViewer>
 
 </Page>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Page
     x:Class="SupportDesk.Presentation.Pages.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -7,17 +8,35 @@
     xmlns:vm="using:SupportDesk.Presentation.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="#F5F8FC">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Padding="20" Spacing="12">
 
-            <TextBlock
-                Text="Översikt"
-                FontSize="24"
-                FontWeight="SemiBold"/>
+        <StackPanel
+            Padding="32"
+            Spacing="20">
 
-            <Grid ColumnSpacing="12">
+            <!-- SIDHUVUD -->
+
+            <StackPanel Spacing="4">
+                <TextBlock
+                    Text="Översikt"
+                    FontSize="32"
+                    FontWeight="SemiBold"
+                    Foreground="#172033"/>
+
+                <TextBlock
+                    Text="En snabb överblick över SupportDesk"
+                    FontSize="15"
+                    Foreground="#64748B"/>
+            </StackPanel>
+
+
+            <!-- STATISTIK -->
+
+            <Grid ColumnSpacing="14">
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -26,124 +45,198 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+
+                <!-- Aktiva -->
+
                 <Border
                     Grid.Column="0"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    Background="White"
+                    BorderBrush="#DCE4EE"
                     BorderThickness="1"
-                    CornerRadius="10"
-                    Padding="16"
-                    MinHeight="90">
+                    CornerRadius="14"
+                    Padding="20"
+                    MinHeight="110">
 
-                    <StackPanel Spacing="8">
+                    <StackPanel Spacing="10">
+
                         <TextBlock
                             Text="Aktiva ärenden"
+                            FontSize="14"
+                            Foreground="#64748B"
                             TextWrapping="Wrap"/>
 
                         <TextBlock
                             Text="{x:Bind ViewModel.ActiveTickets, Mode=OneWay}"
-                            FontSize="24"
-                            FontWeight="SemiBold"/>
+                            FontSize="28"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
                     </StackPanel>
+
                 </Border>
+
+
+                <!-- Avslutade -->
 
                 <Border
                     Grid.Column="1"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    Background="White"
+                    BorderBrush="#DCE4EE"
                     BorderThickness="1"
-                    CornerRadius="10"
-                    Padding="16">
+                    CornerRadius="14"
+                    Padding="20">
 
-                    <StackPanel Spacing="8">
+                    <StackPanel Spacing="10">
+
                         <TextBlock
                             Text="Avslutade ärenden"
+                            FontSize="14"
+                            Foreground="#64748B"
                             TextWrapping="Wrap"/>
 
                         <TextBlock
                             Text="{x:Bind ViewModel.ResolvedTickets, Mode=OneWay}"
-                            FontSize="24"
-                            FontWeight="SemiBold"/>
+                            FontSize="28"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
                     </StackPanel>
+
                 </Border>
+
+
+                <!-- Totalt -->
 
                 <Border
                     Grid.Column="2"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    Background="White"
+                    BorderBrush="#DCE4EE"
                     BorderThickness="1"
-                    CornerRadius="10"
-                    Padding="16">
+                    CornerRadius="14"
+                    Padding="20">
 
-                    <StackPanel Spacing="8">
+                    <StackPanel Spacing="10">
+
                         <TextBlock
                             Text="Totalt antal ärenden"
+                            FontSize="14"
+                            Foreground="#64748B"
                             TextWrapping="Wrap"/>
 
                         <TextBlock
                             Text="{x:Bind ViewModel.TotalTickets, Mode=OneWay}"
-                            FontSize="24"
-                            FontWeight="SemiBold"/>
+                            FontSize="28"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
                     </StackPanel>
+
                 </Border>
+
+
+                <!-- Kunder -->
 
                 <Border
                     Grid.Column="3"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    Background="White"
+                    BorderBrush="#DCE4EE"
                     BorderThickness="1"
-                    CornerRadius="10"
-                    Padding="16">
+                    CornerRadius="14"
+                    Padding="20">
 
-                    <StackPanel Spacing="8">
+                    <StackPanel Spacing="10">
+
                         <TextBlock
                             Text="Kunder"
-                            TextWrapping="Wrap"/>
+                            FontSize="14"
+                            Foreground="#64748B"/>
 
                         <TextBlock
                             Text="{x:Bind ViewModel.TotalCustomers, Mode=OneWay}"
-                            FontSize="24"
-                            FontWeight="SemiBold"/>
+                            FontSize="28"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
                     </StackPanel>
+
                 </Border>
+
+
+                <!-- Handläggare -->
 
                 <Border
                     Grid.Column="4"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    Background="White"
+                    BorderBrush="#DCE4EE"
                     BorderThickness="1"
-                    CornerRadius="10"
-                    Padding="16">
+                    CornerRadius="14"
+                    Padding="20">
 
-                    <StackPanel Spacing="8">
+                    <StackPanel Spacing="10">
+
                         <TextBlock
                             Text="Handläggare"
-                            TextWrapping="Wrap"/>
+                            FontSize="14"
+                            Foreground="#64748B"/>
 
                         <TextBlock
                             Text="{x:Bind ViewModel.TotalTechnicians, Mode=OneWay}"
-                            FontSize="24"
-                            FontWeight="SemiBold"/>
+                            FontSize="28"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
                     </StackPanel>
+
                 </Border>
+
             </Grid>
 
+
+            <!-- MITTEN -->
+
             <Grid ColumnSpacing="20">
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+
+                <!-- KUNDER MED AKTIVA ÄRENDEN -->
+
                 <Border
                     Grid.Column="0"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    Background="White"
+                    BorderBrush="#DCE4EE"
                     BorderThickness="1"
-                    CornerRadius="10"
-                    Padding="16"
-                    HorizontalAlignment="Stretch">
+                    CornerRadius="14"
+                    Padding="22"
+                    MinHeight="290">
 
-                    <StackPanel Spacing="16">
-                        <TextBlock
-                            Text="Kunder med aktiva ärenden"
-                            FontSize="18"
-                            FontWeight="SemiBold"/>
+                    <StackPanel Spacing="18">
 
-                        <Grid ColumnSpacing="12">
+                        <StackPanel Spacing="4">
+
+                            <TextBlock
+                                Text="Kunder med aktiva ärenden"
+                                FontSize="20"
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
+
+                            <TextBlock
+                                Text="Kunder som just nu har öppna supportärenden."
+                                FontSize="13"
+                                Foreground="#64748B"/>
+
+                        </StackPanel>
+
+
+                        <!-- Rubriker -->
+
+                        <Grid
+                            ColumnSpacing="12"
+                            Padding="0,8">
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="3*"/>
@@ -153,25 +246,35 @@
                             <TextBlock
                                 Grid.Column="0"
                                 Text="Kund"
-                                FontWeight="SemiBold"/>
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
 
                             <TextBlock
                                 Grid.Column="1"
                                 Text="E-post"
-                                FontWeight="SemiBold"/>
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
 
                             <TextBlock
                                 Grid.Column="2"
                                 Text="Aktiva ärenden"
-                                FontWeight="SemiBold"/>
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
+
                         </Grid>
+
 
                         <ItemsControl
                             ItemsSource="{x:Bind ViewModel.CustomerTicketSummaries, Mode=OneWay}">
 
                             <ItemsControl.ItemTemplate>
+
                                 <DataTemplate x:DataType="vm:CustomerTicketSummary">
-                                    <Grid ColumnSpacing="12" Padding="0,8">
+
+                                    <Grid
+                                        ColumnSpacing="12"
+                                        Padding="0,9">
+
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="3*"/>
@@ -186,34 +289,61 @@
                                         <TextBlock
                                             Grid.Column="1"
                                             Text="{x:Bind CustomerEmail}"
+                                            Foreground="#64748B"
                                             TextTrimming="CharacterEllipsis"/>
 
                                         <TextBlock
                                             Grid.Column="2"
-                                            Text="{x:Bind TicketCount}"/>
+                                            Text="{x:Bind TicketCount}"
+                                            FontWeight="SemiBold"/>
+
                                     </Grid>
+
                                 </DataTemplate>
+
                             </ItemsControl.ItemTemplate>
+
                         </ItemsControl>
+
                     </StackPanel>
+
                 </Border>
+
+
+                <!-- HANDLÄGGARE -->
 
                 <Border
                     Grid.Column="1"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    Background="White"
+                    BorderBrush="#DCE4EE"
                     BorderThickness="1"
-                    CornerRadius="10"
-                    Padding="16"
-                    HorizontalAlignment="Stretch">
+                    CornerRadius="14"
+                    Padding="22"
+                    MinHeight="290">
 
-                    <StackPanel Spacing="16">
-                        <TextBlock
-                            Text="Pågående ärenden per handläggare"
-                            FontSize="18"
-                            FontWeight="SemiBold"
-                            TextWrapping="Wrap"/>
+                    <StackPanel Spacing="18">
 
-                        <Grid ColumnSpacing="12">
+                        <StackPanel Spacing="4">
+
+                            <TextBlock
+                                Text="Pågående ärenden per handläggare"
+                                FontSize="20"
+                                FontWeight="SemiBold"
+                                Foreground="#172033"
+                                TextWrapping="Wrap"/>
+
+                            <TextBlock
+                                Text="Fördelning av pågående ärenden."
+                                FontSize="13"
+                                Foreground="#64748B"/>
+
+                        </StackPanel>
+
+
+                        <Grid
+                            ColumnSpacing="12"
+                            Padding="0,8">
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -222,21 +352,29 @@
                             <TextBlock
                                 Grid.Column="0"
                                 Text="Handläggare"
-                                FontWeight="SemiBold"/>
+                                FontWeight="SemiBold"
+                                Foreground="#172033"/>
 
                             <TextBlock
                                 Grid.Column="1"
-                                Text="Pågående ärenden"
+                                Text="Pågående"
                                 FontWeight="SemiBold"
-                                TextWrapping="Wrap"/>
+                                Foreground="#172033"/>
+
                         </Grid>
+
 
                         <ItemsControl
                             ItemsSource="{x:Bind ViewModel.TechnicianTicketSummaries, Mode=OneWay}">
 
                             <ItemsControl.ItemTemplate>
+
                                 <DataTemplate x:DataType="vm:TechnicianTicketSummary">
-                                    <Grid ColumnSpacing="12" Padding="0,8">
+
+                                    <Grid
+                                        ColumnSpacing="12"
+                                        Padding="0,9">
+
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
@@ -249,29 +387,59 @@
 
                                         <TextBlock
                                             Grid.Column="1"
-                                            Text="{x:Bind InProgressTickets}"/>
+                                            Text="{x:Bind InProgressTickets}"
+                                            FontWeight="SemiBold"/>
+
                                     </Grid>
+
                                 </DataTemplate>
+
                             </ItemsControl.ItemTemplate>
+
                         </ItemsControl>
+
                     </StackPanel>
+
                 </Border>
+
             </Grid>
 
+
+            <!-- SENASTE ÄRENDEN -->
+
             <Border
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                Background="White"
+                BorderBrush="#DCE4EE"
                 BorderThickness="1"
-                CornerRadius="10"
-                Padding="16"
-                HorizontalAlignment="Stretch">
+                CornerRadius="14"
+                Padding="22"
+                HorizontalAlignment="Stretch"
+                MinHeight="170">
 
-                <StackPanel Spacing="16">
-                    <TextBlock
-                        Text="De 5 senaste ärendena"
-                        FontSize="18"
-                        FontWeight="SemiBold"/>
+                <StackPanel Spacing="18">
 
-                    <Grid ColumnSpacing="12">
+                    <StackPanel Spacing="4">
+
+                        <TextBlock
+                            Text="De 5 senaste ärendena"
+                            FontSize="20"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
+                        <TextBlock
+                            Text="Senast registrerade supportärenden."
+                            FontSize="13"
+                            Foreground="#64748B"/>
+
+                    </StackPanel>
+
+
+                    <!-- Rubriker -->
+
+                    <Grid
+                        ColumnSpacing="12"
+                        Padding="0,8">
+
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="3*"/>
@@ -281,43 +449,27 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock
-                            Grid.Column="0"
-                            Text="Kund"
-                            FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="0" Text="Kund" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="1" Text="Ärende" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="2" Text="Datum" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="3" Text="Handläggare" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="4" Text="Prioritet" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Column="5" Text="Status" FontWeight="SemiBold"/>
 
-                        <TextBlock
-                            Grid.Column="1"
-                            Text="Ärende"
-                            FontWeight="SemiBold"/>
-
-                        <TextBlock
-                            Grid.Column="2"
-                            Text="Datum"
-                            FontWeight="SemiBold"/>
-
-                        <TextBlock
-                            Grid.Column="3"
-                            Text="Handläggare"
-                            FontWeight="SemiBold"/>
-
-                        <TextBlock
-                            Grid.Column="4"
-                            Text="Prioritet"
-                            FontWeight="SemiBold"/>
-
-                        <TextBlock
-                            Grid.Column="5"
-                            Text="Status"
-                            FontWeight="SemiBold"/>
                     </Grid>
+
 
                     <ItemsControl
                         ItemsSource="{x:Bind ViewModel.RecentTickets, Mode=OneWay}">
 
                         <ItemsControl.ItemTemplate>
+
                             <DataTemplate x:DataType="vm:RecentTicketSummary">
-                                <Grid ColumnSpacing="12" Padding="0,8">
+
+                                <Grid
+                                    ColumnSpacing="12"
+                                    Padding="0,9">
+
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"/>
                                         <ColumnDefinition Width="3*"/>
@@ -340,6 +492,7 @@
                                     <TextBlock
                                         Grid.Column="2"
                                         Text="{x:Bind CreatedAt}"
+                                        Foreground="#64748B"
                                         TextTrimming="CharacterEllipsis"/>
 
                                     <TextBlock
@@ -356,13 +509,21 @@
                                         Grid.Column="5"
                                         Text="{x:Bind Status}"
                                         TextTrimming="CharacterEllipsis"/>
+
                                 </Grid>
+
                             </DataTemplate>
+
                         </ItemsControl.ItemTemplate>
+
                     </ItemsControl>
+
                 </StackPanel>
+
             </Border>
 
         </StackPanel>
+
     </ScrollViewer>
+
 </Page>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Page
     x:Class="SupportDesk.Presentation.Pages.CreateTicketPage"
     Loaded="CreateTicketPageLoaded"
@@ -7,47 +8,220 @@
     xmlns:local="using:SupportDesk.Presentation.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="#F5F8FC">
 
-    <ScrollViewer>
-        <Grid Margin="20">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+        <Grid
+            Padding="32"
+            RowSpacing="20">
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Skapa ärende" Grid.Row="0" FontSize="20" Margin="0 0 0 10" />
 
-            <Button Grid.Row="1" Command="{x:Bind ViewModel.GoBackCommand}" Content="Tillbaka till ärenden" Margin="0 10 0 0" Padding="25 8" HorizontalAlignment="Right" />
+            <!-- SIDHUVUD -->
 
-            <TextBlock Grid.Row="2" Text="{x:Bind ViewModel.SuccessMessage, Mode=OneWay}" Foreground="CornflowerBlue" />
+            <Grid Grid.Row="0">
 
-            <StackPanel Grid.Row="3" Margin="0 15 0 10" Width="400" HorizontalAlignment="Left">
-                <TextBlock Text="Titel" Margin="0 0 0 10" />
-                <TextBox Text="{x:Bind ViewModel.Title, Mode=TwoWay}" GotFocus="Input_GotFocus" Margin="0 0 0 10"  />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Ärendebeskrivning" Margin="0 10 0 10" />
-                <TextBox Text="{x:Bind ViewModel.Description, Mode=TwoWay}" GotFocus="Input_GotFocus" Margin="0 0 0 10"  Height="200" TextWrapping="Wrap" AcceptsReturn="True" />
+                <StackPanel
+                    Grid.Column="0"
+                    Spacing="4">
 
-                <TextBlock Text="Kund" Margin="0 10 0 10"  />
-                <ComboBox ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedCustomer, Mode=TwoWay}" DisplayMemberPath="CustomerName" PlaceholderText="Välj en kund" GotFocus="Input_GotFocus" Margin="0 0 0 10" HorizontalAlignment="Stretch" />
+                    <TextBlock
+                        Text="Skapa ärende"
+                        FontSize="32"
+                        FontWeight="SemiBold"
+                        Foreground="#172033"/>
 
-                <TextBlock Text="Prioritet" Margin="0 10 0 10"  />
-                <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                    <RadioButton Content="Hög" GroupName="Priority" GotFocus="Input_GotFocus" Tag="High" Checked="Priority_Radiobutton_Checked" />
-                    <RadioButton x:Name="Normal_Priority_RadioButton" Content="Normal" GroupName="Priority" GotFocus="Input_GotFocus" Tag="Normal" IsChecked="True" Checked="Priority_Radiobutton_Checked" />
-                    <RadioButton Content="Låg" GroupName="Priority" Tag="Low" GotFocus="Input_GotFocus" Checked="Priority_Radiobutton_Checked" />
+                    <TextBlock
+                        Text="Registrera ett nytt supportärende"
+                        FontSize="15"
+                        Foreground="#64748B"/>
+
                 </StackPanel>
 
-                <TextBlock Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}" Margin="0 10 0 0" Foreground="Crimson" />
 
-            </StackPanel>
-            
-            <Button Grid.Row="4" Command="{x:Bind ViewModel.CreateTicketCommand}" Content="Skapa ärende" Margin="0 0 0 10" Padding="25 8" HorizontalAlignment="Right" />
+                <Button
+                    Grid.Column="1"
+                    Command="{x:Bind ViewModel.GoBackCommand}"
+                    Content="Tillbaka till ärenden"
+                    Padding="18,9"
+                    VerticalAlignment="Center"/>
+
+            </Grid>
+
+
+            <!-- FORMULÄR -->
+
+            <Border
+                Grid.Row="1"
+                Width="600"
+                HorizontalAlignment="Left"
+                Background="White"
+                BorderBrush="#DCE4EE"
+                BorderThickness="1"
+                CornerRadius="14"
+                Padding="28">
+
+                <StackPanel Spacing="18">
+
+
+                    <!-- KORTRUBRIK -->
+
+                    <StackPanel Spacing="4">
+
+                        <TextBlock
+                            Text="Ärendeuppgifter"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
+                        <TextBlock
+                            Text="Fyll i informationen nedan för att skapa ett nytt ärende."
+                            FontSize="14"
+                            Foreground="#64748B"
+                            TextWrapping="Wrap"/>
+
+                    </StackPanel>
+
+
+                    <!-- TITEL -->
+
+                    <StackPanel Spacing="7">
+
+                        <TextBlock
+                            Text="Titel"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
+                        <TextBox
+                            Text="{x:Bind ViewModel.Title, Mode=TwoWay}"
+                            GotFocus="Input_GotFocus"
+                            PlaceholderText="Ange ärendets titel"/>
+
+                    </StackPanel>
+
+
+                    <!-- BESKRIVNING -->
+
+                    <StackPanel Spacing="7">
+
+                        <TextBlock
+                            Text="Ärendebeskrivning"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
+                        <TextBox
+                            Text="{x:Bind ViewModel.Description, Mode=TwoWay}"
+                            GotFocus="Input_GotFocus"
+                            PlaceholderText="Beskriv ärendet..."
+                            Height="150"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"/>
+
+                    </StackPanel>
+
+
+                    <!-- KUND -->
+
+                    <StackPanel Spacing="7">
+
+                        <TextBlock
+                            Text="Kund"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
+                        <ComboBox
+                            ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.SelectedCustomer, Mode=TwoWay}"
+                            DisplayMemberPath="CustomerName"
+                            PlaceholderText="Välj en kund"
+                            GotFocus="Input_GotFocus"
+                            HorizontalAlignment="Stretch"/>
+
+                    </StackPanel>
+
+
+                    <!-- PRIORITET -->
+
+                    <StackPanel Spacing="7">
+
+                        <TextBlock
+                            Text="Prioritet"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Spacing="24">
+
+                            <RadioButton
+                                Content="Hög"
+                                GroupName="Priority"
+                                GotFocus="Input_GotFocus"
+                                Tag="High"
+                                Checked="Priority_Radiobutton_Checked"/>
+
+                            <RadioButton
+                                x:Name="Normal_Priority_RadioButton"
+                                Content="Normal"
+                                GroupName="Priority"
+                                GotFocus="Input_GotFocus"
+                                Tag="Normal"
+                                IsChecked="True"
+                                Checked="Priority_Radiobutton_Checked"/>
+
+                            <RadioButton
+                                Content="Låg"
+                                GroupName="Priority"
+                                Tag="Low"
+                                GotFocus="Input_GotFocus"
+                                Checked="Priority_Radiobutton_Checked"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+
+                    <!-- MEDDELANDEN -->
+
+                    <TextBlock
+                        Text="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+                        Foreground="Crimson"
+                        TextWrapping="Wrap"/>
+
+                    <TextBlock
+                        Text="{x:Bind ViewModel.SuccessMessage, Mode=OneWay}"
+                        Foreground="ForestGreen"
+                        TextWrapping="Wrap"/>
+
+
+                    <!-- SKAPA -->
+
+                    <Button
+                        Command="{x:Bind ViewModel.CreateTicketCommand}"
+                        Content="Skapa ärende"
+                        Background="#2563EB"
+                        Foreground="White"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        Padding="20,11"/>
+
+                </StackPanel>
+
+            </Border>
+
         </Grid>
+
     </ScrollViewer>
 
 </Page>
