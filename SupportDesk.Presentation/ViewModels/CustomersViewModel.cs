@@ -4,6 +4,7 @@ using SupportDesk.Domain.Models;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
+using System;
 
 namespace SupportDesk.Presentation.ViewModels;
 
@@ -19,6 +20,9 @@ public partial class CustomersViewModel : ObservableObject
 
     [ObservableProperty]
     private Customer? _selectedCustomer;
+
+    [ObservableProperty]
+    private string _errorMessage = string.Empty;
 
     partial void OnSelectedCustomerChanged(Customer? value)
     {
@@ -60,12 +64,20 @@ public partial class CustomersViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async Task CreateCustomerAsync() 
+    public async Task CreateCustomerAsync()
     {
-        await _customerService.CreateAsync(CustomerName, CustomerEmail);
-        await LoadCustomersAsync(); 
+        try
+        {
+            await _customerService.CreateAsync(CustomerName, CustomerEmail);
+            await LoadCustomersAsync();
+            ResetForm();
 
-        ResetForm();
+            ErrorMessage = string.Empty;
+        }
+        catch (ArgumentException ex)
+        {
+            ErrorMessage = ex.Message;
+        }
     }
 
     [RelayCommand]
