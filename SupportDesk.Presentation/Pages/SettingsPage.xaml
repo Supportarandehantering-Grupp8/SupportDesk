@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Page
     x:Class="SupportDesk.Presentation.Pages.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,41 +7,92 @@
     xmlns:local="using:SupportDesk.Presentation.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="#F5F8FC">
 
-    <ScrollViewer>
-        <StackPanel Padding="24" Spacing="20">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-            <!-- Sidans rubrik -->
-            <TextBlock
-                Text="Inställningar"
-                FontSize="26"
-                FontWeight="SemiBold"/>
+        <StackPanel
+            Padding="32"
+            Spacing="20">
 
-            <!-- Sektion för testdata -->
+            <!-- SIDHUVUD -->
+
+            <StackPanel Spacing="4">
+
+                <TextBlock
+                    Text="Inställningar"
+                    FontSize="32"
+                    FontWeight="SemiBold"
+                    Foreground="#172033"/>
+
+                <TextBlock
+                    Text="Hantera applikationens inställningar och testdata"
+                    FontSize="15"
+                    Foreground="#64748B"/>
+
+            </StackPanel>
+
+
+            <!-- TESTDATA -->
+
             <Border
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                Background="White"
+                BorderBrush="#DCE4EE"
                 BorderThickness="1"
-                CornerRadius="10"
-                Padding="20"
-                MaxWidth="650"
+                CornerRadius="14"
+                Padding="28"
+                Width="650"
                 HorizontalAlignment="Left">
 
-                <StackPanel Spacing="14">
+                <StackPanel Spacing="18">
 
-                    <TextBlock
-                        Text="Testdata"
-                        FontSize="20"
-                        FontWeight="SemiBold"/>
+                    <!-- RUBRIK -->
 
-                    <TextBlock
-                        Text="Här kan du återställa applikationens sparade testdata."
-                        TextWrapping="Wrap"/>
+                    <StackPanel Spacing="4">
 
-                    <TextBlock
-                        Text="Varning! Alla sparade kunder och ärenden kommer att raderas permanent."
-                        Foreground="OrangeRed"
-                        TextWrapping="Wrap"/>
+                        <TextBlock
+                            Text="Testdata"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            Foreground="#172033"/>
+
+                        <TextBlock
+                            Text="Återställ applikationens sparade testdata."
+                            FontSize="14"
+                            Foreground="#64748B"
+                            TextWrapping="Wrap"/>
+
+                    </StackPanel>
+
+
+                    <!-- INFORMATION -->
+
+                    <Border
+                        Background="#FFF7ED"
+                        BorderBrush="#FED7AA"
+                        BorderThickness="1"
+                        CornerRadius="10"
+                        Padding="16">
+
+                        <StackPanel Spacing="5">
+
+                            <TextBlock
+                                Text="Varning"
+                                FontWeight="SemiBold"
+                                Foreground="#C2410C"/>
+
+                            <TextBlock
+                                Text="Alla sparade kunder och ärenden kommer att raderas permanent."
+                                Foreground="#9A3412"
+                                TextWrapping="Wrap"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+
+                    <!-- KNAPP -->
 
                     <Button
                         x:Name="ResetTestDataButton"
@@ -50,9 +102,11 @@
                         Click="ResetTestDataButton_Click"/>
 
                 </StackPanel>
+
             </Border>
 
         </StackPanel>
+
     </ScrollViewer>
 
 </Page>
