@@ -111,6 +111,14 @@
                         Height="44"
                         CornerRadius="8"/>
 
+                    <!-- FELMEDDELANDE -->
+
+                    <TextBlock
+                        Text="{Binding ErrorMessage}"
+                        Foreground="Crimson"
+                        FontSize="13"
+                        TextWrapping="Wrap"/>
+
                     <!-- KNAPPAR -->
 
                     <Button
@@ -121,7 +129,7 @@
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Center"
                         Height="44"
-                        Margin="0,16,0,0"
+                        Margin="0,8,0,0"
                         CornerRadius="8"/>
 
                     <Button
